@@ -1,0 +1,38 @@
+\documentclass[a4paper, oneside, openany]{book}
+\usepackage{graphicx}
+\usepackage{subfiles}
+\usepackage[italian]{babel}
+\usepackage{hyperref}
+\usepackage[export]{adjustbox} 
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{changepage}
+
+
+\usepackage{titlesec} % Modifica il titolo del capitolo
+\titleformat{\chapter}[hang]{\huge\bfseries}{\thechapter}{1em}{}
+
+% Per generare la bibliografia
+\usepackage[
+backend=biber,
+style=ieee,
+sorting=none 
+%sorting=ynt
+]{biblatex}
+\addbibresource{files/bibliografia.bib}
+
+\begin{document}
+
+% File di frontespizio
+\subfile{files/frontespizio.tex}
+
+ % Numerazione delle prima pagina con i numeri romani
+\pagenumbering{roman}
+ 
+\tableofcontents % Indice
+\listoffigures % Indice delle immagini
+\listoftables % Indice delle tabelle
+
+\printbibliography
+
+\end{document}
