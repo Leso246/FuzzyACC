@@ -51,10 +51,13 @@ acceleration['strong_acceleration'] = fuzz.trapmf(acceleration.universe, [3, 4, 
 ######################################################
 # CREA IL GRAFICO PER LE CONDIZIONI METEREOLOGICHE
 
-# plt.figure(figsize=(8, 4))
-# plt.plot(weather_condition.universe, weather_condition['bad'].mf, label='Bad Weather')
-# plt.plot(weather_condition.universe, weather_condition['good'].mf, label='Good Weather')
-# plt.title('Weather Condition Membership Functions')
+# plt.figure(figsize=(10,6))
+
+# for label in weather_condition.terms:
+#     mf = weather_condition[label].mf
+#     plt.plot(weather_condition.universe, mf, label=label)
+
+# plt.title('Membership Functions of Weather Condition')
 # plt.xlabel('Weather Condition (0=Bad, 1=Good)')
 # plt.ylabel('Membership Degree')
 # plt.legend()
@@ -62,6 +65,36 @@ acceleration['strong_acceleration'] = fuzz.trapmf(acceleration.universe, [3, 4, 
 # plt.show()
 
 ######################################################
+# CREA IL GRAFICO PER IL TIME HEADWAY
+
+# plt.figure(figsize=(10,6))
+
+# for label in time_headway.terms:
+#     mf = time_headway[label].mf
+#     plt.plot(time_headway.universe, mf, label=label)
+
+# plt.title('Membership Functions of Time Headway')
+# plt.xlabel('Time Headway [s]')
+# plt.ylabel('Membership Degree')
+# plt.legend()
+# plt.grid(True)
+# plt.show()
+
+######################################################
+# CREA IL GRAFICO PER LA RELATIVE VELOCITY
+
+# plt.figure(figsize=(10,6))
+
+# for label in relative_velocity.terms:
+#     mf = relative_velocity[label].mf
+#     plt.plot(relative_velocity.universe, mf, label=label)
+
+# plt.title('Membership Functions of Relative Velocity')
+# plt.xlabel('Relative Velocity [m/s]')
+# plt.ylabel('Membership Degree')
+# plt.legend()
+# plt.grid(True)
+# plt.show()
 
 ######################################################
 # CREA IL GRAFICO PER L'ACCELERAZIONE
@@ -73,7 +106,7 @@ acceleration['strong_acceleration'] = fuzz.trapmf(acceleration.universe, [3, 4, 
 #     plt.plot(acceleration.universe, mf, label=label)
 
 # plt.title('Membership Functions of Acceleration')
-# plt.xlabel('Acceleration (m/s^2)')
+# plt.xlabel('Acceleration [m/s^2]')
 # plt.ylabel('Membership Degree')
 # plt.legend()
 # plt.grid(True)
