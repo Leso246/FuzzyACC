@@ -4,9 +4,9 @@ import pandas as pd
 # Definizione delle variabili linguistiche
 # =============================
 
-weather_conditions = ["bad", "good"];
-time_headways = ["dangerous", "short", "adequate", "long", "very_long"];
-relative_velocities = [
+weather_condition = ["bad", "good"];
+time_headway = ["dangerous", "short", "adequate", "long", "very_long"];
+relative_velocity = [
   "approaching_fast",
   "approaching",
   "steady",
@@ -31,14 +31,14 @@ acceleration = ["strong_deceleration",
 
 combinations = [];
 
-for weather in weather_conditions:
-    for time in time_headways:
-        for rel in relative_velocities:
+for weather in weather_condition:
+    for time in time_headway:
+        for rel in relative_velocity:
             combinations.append(
                 {
-                    'weather_conditions': weather,
-                    'time_headways': time,
-                    'relative_velocities': rel,
+                    'weather_condition': weather,
+                    'time_headway': time,
+                    'relative_velocity': rel,
                     'acceleration': '',
                 }
             )

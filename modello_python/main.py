@@ -1,6 +1,7 @@
 import numpy as np
 import skfuzzy as fuzz
 from skfuzzy import control as ctrl
+import pandas as pd
 import matplotlib.pyplot as plt
 
 # distance_m = ...      # es. 60
@@ -49,8 +50,9 @@ acceleration['medium_acceleration'] = fuzz.trimf(acceleration.universe, [1.5, 3,
 acceleration['strong_acceleration'] = fuzz.trapmf(acceleration.universe, [3, 4, 5, 5])
 
 ######################################################
-# CREA IL GRAFICO PER LE CONDIZIONI METEREOLOGICHE
+# CREA I GRAFICI
 
+# Condizioni Metereologiche
 # plt.figure(figsize=(10,6))
 
 # for label in weather_condition.terms:
@@ -64,9 +66,8 @@ acceleration['strong_acceleration'] = fuzz.trapmf(acceleration.universe, [3, 4, 
 # plt.grid(True)
 # plt.show()
 
-######################################################
-# CREA IL GRAFICO PER IL TIME HEADWAY
 
+# Time Headway
 # plt.figure(figsize=(10,6))
 
 # for label in time_headway.terms:
@@ -80,9 +81,8 @@ acceleration['strong_acceleration'] = fuzz.trapmf(acceleration.universe, [3, 4, 
 # plt.grid(True)
 # plt.show()
 
-######################################################
-# CREA IL GRAFICO PER LA RELATIVE VELOCITY
 
+# Relative velocity
 # plt.figure(figsize=(10,6))
 
 # for label in relative_velocity.terms:
@@ -96,9 +96,7 @@ acceleration['strong_acceleration'] = fuzz.trapmf(acceleration.universe, [3, 4, 
 # plt.grid(True)
 # plt.show()
 
-######################################################
-# CREA IL GRAFICO PER L'ACCELERAZIONE
-
+# Acceleration
 # plt.figure(figsize=(10,6))
 
 # for label in acceleration.terms:
@@ -111,4 +109,27 @@ acceleration['strong_acceleration'] = fuzz.trapmf(acceleration.universe, [3, 4, 
 # plt.legend()
 # plt.grid(True)
 # plt.show()
+
 ######################################################
+# CREO LE REGOLE
+df = pd.read_csv('./modello_python/rules.csv')
+
+rules = []
+for _, row in df.iterrows():
+    # Controlli di validazione
+    assert row['weather_condition'] in weather_condition.terms, f"Errore: '{row['weather_condition']}' non è una weather_condition valida."
+    assert row['time_headway'] in time_headway.terms, f"Errore: '{row['time_headway']}' non è un time_headway valido."
+    assert row['relative_velocity'] in relative_velocity.terms, f"Errore: '{row['relative_velocity']}' non è una relative_velocity valida."
+    assert row['acceleration'] in acceleration.terms, f"Errore: '{row['acceleration']}' non è un acceleration valido."
+
+
+    rule = ctrl.Rule(
+        antecedent=(
+            (weather_condition[row['weather_condition']] &
+             time_headway[row['time_headway']] &
+             relative_velocity[row['relative_velocity']])
+        ),
+        consequent=acceleration[row['acceleration']],
+        label=f"{row['weather_condition']}_{row['time_headway']}_{row['relative_velocity']}"
+    )
+    rules.append(rule)

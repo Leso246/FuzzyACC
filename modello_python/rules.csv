@@ -1,4 +1,4 @@
-weather_conditions,time_headways,relative_velocities,acceleration
+weather_condition,time_headway,relative_velocity,acceleration
 bad,dangerous,approaching_fast,strong_deceleration
 bad,dangerous,approaching,medium_deceleration
 bad,dangerous,steady,medium_deceleration
