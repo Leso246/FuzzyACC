@@ -3,6 +3,7 @@ import skfuzzy as fuzz
 from skfuzzy import control as ctrl
 import pandas as pd
 import matplotlib.pyplot as plt
+from collections import deque
 
 ######################################################
 # DEFINISCE L'UNIVERSO
@@ -112,15 +113,10 @@ plt.savefig("./modello_python/assets/plots/membership_fun/acceleration")
 
 ######################################################
 # CREA LE REGOLE
-df = pd.read_csv('./modello_python/rules.csv')
+df = pd.read_csv('./modello_python/rules/rules.csv')
 
 rules = []
 for _, row in df.iterrows():
-    # Controlli di validazione
-    assert row['weather_condition'] in weather_condition.terms, f"Errore: '{row['weather_condition']}' non è una weather_condition valida."
-    assert row['time_headway'] in time_headway.terms, f"Errore: '{row['time_headway']}' non è un time_headway valido."
-    assert row['relative_velocity'] in relative_velocity.terms, f"Errore: '{row['relative_velocity']}' non è una relative_velocity valida."
-    assert row['acceleration'] in acceleration.terms, f"Errore: '{row['acceleration']}' non è un acceleration valido."
 
     rule = ctrl.Rule(
         antecedent=(
@@ -142,7 +138,7 @@ sim = ctrl.ControlSystemSimulation(system)
 ######################################################
 # PASSA GLI INPUT
 
-df = pd.read_csv('modello_python/assets/data/data.csv')
+df = pd.read_csv('modello_python/assets/dataset/data.csv')
 
 time_column = df['time']
 leader_velocity_column = df['leader_velocity']
@@ -169,6 +165,12 @@ result = pd.DataFrame(
 
 result.loc[0] = [0, ego_velocity, leader_velocity, 0, 0, space_gap]
 
+# Parametro alpha: tra 0 e 1
+# Più vicino a 0, più smooth ma meno reattivo.
+# Più vicino a 1, meno smooth ma più reattivo.
+ALPHA = 0.1 
+filtered_acceleration = 0
+
 for index in range(1, len(time_column)):
 
     time= time_column.iloc[index]
@@ -177,17 +179,24 @@ for index in range(1, len(time_column)):
     sim.input['relative_velocity'] = relative_velocity
     sim.input['time_headway'] = time_headway
 
-    if abs(relative_velocity) < 1e-3:
-        time_headway = 300
-
     sim.compute()
 
     # Calcola la differenza di secondi tra uno step e l'altro
     time_difference = time_column[index] - time_column[index - 1]
-    
-    # Calcola le accelerazioni di entrambe le auto
-    ego_acceleration = sim.output['acceleration']
 
+    # Calcola l'accelerazione del modello fuzzy
+    ego_acceleration_fuzzy = sim.output['acceleration']
+    
+    # Exponentially-Weighted Moving Average (https://www.geogebra.org/m/tb88mqrm)
+    filtered_acceleration = ALPHA * ego_acceleration_fuzzy + (1 - ALPHA) * filtered_acceleration
+
+    ego_acceleration = filtered_acceleration
+
+    # Se il modulo dell'accelerazione è troppo basso, riporto a zero
+    if(abs(ego_acceleration)) < 0.15:
+        ego_acceleration = 0
+
+    # Calcola la leader acceleration
     leader_acceleration = (leader_velocity_column[index] - leader_velocity_column[index - 1]) / time_difference
  
     # Calcola lo spazio in metri percorso da ognuna delle due auto durante uno step di tempo

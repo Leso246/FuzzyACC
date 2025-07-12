@@ -1,3 +1,5 @@
+# File che genera un CSV con tutte le possibili combinazioni degli input
+
 import pandas as pd
 
 # =============================

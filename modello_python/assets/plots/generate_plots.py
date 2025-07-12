@@ -8,10 +8,9 @@ DATA_COLOR = "#E60073"
 SECURITY_DISTANCE_QUIZ = 'green'
 SECURITY_DISTANCE_ACI = '#00CCCC'
 
-
 # Carica i risultati e i dati
 result = pd.read_csv("modello_python/assets/data_sim/sim.csv")
-data_df = pd.read_csv("modello_python/assets/data/data.csv")
+data_df = pd.read_csv("modello_python/assets/dataset/data.csv")
 
 data = pd.DataFrame({
     "time": data_df["time"],
