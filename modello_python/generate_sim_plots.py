@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 from config import EGO_COLOR, LEADER_COLOR, DATA_COLOR,SECURITY_DISTANCE_ACI, SECURITY_DISTANCE_QUIZ, SIM_CSV_PATH, DATA_CSV_PATH, SIM_LEAD_PLOTS_PATH, SIM_REAL_PLOTS_PATH
 
-# Plotta i grafici relativi ai dati prodotti dalla simulazione
+# genera i grafici relativi ai dati prodotti dalla simulazione
 def generate_sim_plots():
 
     # Carica i risultati e i dati

@@ -2,6 +2,7 @@ import pandas as pd
 from skfuzzy import control as ctrl
 from config import DATA_CSV_PATH, SIM_CSV_PATH, ALPHA, MIN_ACCELERATION
 
+# Esegue la simulazione
 def run_simulation(system):
 
     sim = ctrl.ControlSystemSimulation(system)
@@ -94,7 +95,7 @@ def run_simulation(system):
             space_gap
         ]
 
-        print("index": + index + " acceleration" + ego_acceleration)
+        print("index: ", index, " acceleration: ", ego_acceleration)
     
     result.to_csv(SIM_CSV_PATH, index=False)
 

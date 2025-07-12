@@ -3,7 +3,7 @@
 import matplotlib.pyplot as plt
 from config import MF_PLOTS_PATH
 
-# Plotta i grafici delle membership functions
+# Genera i grafici delle membership functions
 def generate_mf_plots(var, title, xlabel, output_path, tight_legend):
     plt.figure(figsize=(10, 6))
 

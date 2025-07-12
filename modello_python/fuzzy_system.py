@@ -4,6 +4,7 @@ from skfuzzy import control as ctrl
 import pandas as pd
 from config import RULES_CSV_PATH
 
+# Funzione che crea il sistema fuzzy
 def create_fuzzy_system():
 
     ######################################################
