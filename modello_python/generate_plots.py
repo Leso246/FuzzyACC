@@ -5,7 +5,9 @@ import numpy as np
 EGO_COLOR = 'blue'
 LEADER_COLOR = 'orange'
 DATA_COLOR = "#E60073"
-SECURITY_DISTANCE = 'green'
+SECURITY_DISTANCE_QUIZ = 'green'
+SECURITY_DISTANCE_ACI = '#00CCCC'
+
 
 # Carica i risultati e i dati
 result = pd.read_csv("modello_python/assets/data_sim/sim.csv")
@@ -16,7 +18,8 @@ data = pd.DataFrame({
     "ego_velocity": data_df["ego_velocity"],
     "ego_acceleration": np.nan,
     "space_gap": data_df["space_gap"],
-    "security_distance": np.nan,
+    "security_distance_quiz": np.nan,
+    "security_distance_aci": np.nan
 })
 
 
@@ -25,7 +28,8 @@ for i in range(1, len(data_df)):
     ego_acceleration = (data_df["ego_velocity"][i] - data_df["ego_velocity"][i - 1]) / time_difference
 
     data.loc[i, "ego_acceleration"] = ego_acceleration
-    data.loc[i, "security_distance"] = ((data["ego_velocity"][i] * 3.6) / 10) * 3
+    data.loc[i, "security_distance_quiz"] = ((data["ego_velocity"][i] * 3.6) / 10) * 3
+    data.loc[i, "security_distance_aci"] = pow(((data["ego_velocity"][i] * 3.6) / 10), 2)
 
 
 # Grafico ego_velocity VS leader_velocity
@@ -102,8 +106,9 @@ plt.savefig("./modello_python/assets/plots/simulation/real_data_comparison/space
 # Grafico space_gap VS security_distance
 plt.figure(figsize=(16, 8))
 plt.plot(result['time'], result['space_gap'], label='Space Gap Simulato', color=EGO_COLOR)
-plt.plot(data['time'], data['security_distance'], label='Distanza di Sicurezza', color=SECURITY_DISTANCE)
-plt.title('Confronto Space Gap simulato e Distanza di Sicurezza')
+plt.plot(data['time'], data['security_distance_quiz'], label='Distanza di Sicurezza QuizPatenteApp', color=SECURITY_DISTANCE_QUIZ)
+plt.plot(data['time'], data['security_distance_aci'], label='Distanza di Sicurezza ACI', color=SECURITY_DISTANCE_ACI)
+plt.title('Confronto Space Gap simulato e Distanze di Sicurezza')
 plt.xlabel('Tempo [s]')
 plt.ylabel('Distanza [m]')
 plt.xticks(np.arange(0, 899, step=50))

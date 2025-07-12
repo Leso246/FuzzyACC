@@ -11,7 +11,8 @@ time_headway = ctrl.Antecedent(np.arange(0, 15.1, 0.1), 'time_headway')
 relative_velocity = ctrl.Antecedent(np.arange(-20, +20.1, 0.1), 'relative_velocity')
 weather_condition = ctrl.Antecedent(np.arange(0, 1.01, 0.01), 'weather_condition')
 
-acceleration = ctrl.Consequent(np.arange(-5, +5.1, 0.1), 'acceleration')
+# acceleration = ctrl.Consequent(np.arange(-5, +5.1, 0.1), 'acceleration')
+acceleration = ctrl.Consequent(np.arange(-3.0, +3.1, 0.1), 'acceleration')
 
 ######################################################
 # DEFINISCE LE MEMBERSHIP FUNCTIONS
@@ -31,13 +32,21 @@ relative_velocity['steady'] = fuzz.trimf(relative_velocity.universe, [-1.0, 0.0,
 relative_velocity['moving_away'] = fuzz.trimf(relative_velocity.universe, [0.5, 3.0, 7.0])
 relative_velocity['moving_away_fast'] = fuzz.trapmf(relative_velocity.universe, [5.0, 10.0, 20.1, 20.1])
 
-acceleration['strong_deceleration'] = fuzz.trapmf(acceleration.universe, [-5.0, -5.0, -4.0, -3.0])
-acceleration['medium_deceleration'] = fuzz.trimf(acceleration.universe, [-4.0, -3.0, -1.5])
-acceleration['light_deceleration'] = fuzz.trimf(acceleration.universe, [-2.0, -1.0, -0.3])
-acceleration['zero_acceleration'] = fuzz.trapmf(acceleration.universe, [-0.7, -0.5, 0.5, 0.7])
-acceleration['light_acceleration'] = fuzz.trimf(acceleration.universe, [0.3, 1.0, 2.0])
-acceleration['medium_acceleration'] = fuzz.trimf(acceleration.universe, [1.5, 3.0, 4.0])
-acceleration['strong_acceleration'] = fuzz.trapmf(acceleration.universe, [3.0, 4.0, 5.0, 5.0])
+# acceleration['strong_deceleration'] = fuzz.trapmf(acceleration.universe, [-5.0, -5.0, -4.0, -3.0])
+# acceleration['medium_deceleration'] = fuzz.trimf(acceleration.universe, [-4.0, -3.0, -1.5])
+# acceleration['light_deceleration'] = fuzz.trimf(acceleration.universe, [-2.0, -1.0, -0.3])
+# acceleration['zero_acceleration'] = fuzz.trapmf(acceleration.universe, [-0.7, -0.5, 0.5, 0.7])
+# acceleration['light_acceleration'] = fuzz.trimf(acceleration.universe, [0.3, 1.0, 2.0])
+# acceleration['medium_acceleration'] = fuzz.trimf(acceleration.universe, [1.5, 3.0, 4.0])
+# acceleration['strong_acceleration'] = fuzz.trapmf(acceleration.universe, [3.0, 4.0, 5.0, 5.0])
+
+acceleration['strong_deceleration'] = fuzz.trapmf(acceleration.universe, [-3.0, -3.0, -2.5, -2.0])
+acceleration['medium_deceleration'] = fuzz.trimf(acceleration.universe, [-2.5, -1.8, -1.0])
+acceleration['light_deceleration'] = fuzz.trimf(acceleration.universe, [-1.2, -0.7, -0.2])
+acceleration['zero_acceleration'] = fuzz.trapmf(acceleration.universe, [-0.3, -0.1, 0.1, 0.3])
+acceleration['light_acceleration'] = fuzz.trimf(acceleration.universe, [0.2, 0.7, 1.2])
+acceleration['medium_acceleration'] = fuzz.trimf(acceleration.universe, [1.0, 1.8, 2.5])
+acceleration['strong_acceleration'] = fuzz.trapmf(acceleration.universe, [2.0, 2.5, 3.1, 3.1])
 
 ######################################################
 # CREA I GRAFICI
@@ -49,9 +58,9 @@ for label in weather_condition.terms:
     mf = weather_condition[label].mf
     plt.plot(weather_condition.universe, mf, label=label)
 
-plt.title('Membership Functions of Weather Condition')
+plt.title('Membership Functions di Weather Condition')
 plt.xlabel('Weather Condition (0=Bad, 1=Good)')
-plt.ylabel('Membership Degree')
+plt.ylabel('Grado di Appartenenza')
 plt.legend()
 plt.grid(True)
 plt.savefig("./modello_python/assets/plots/membership_fun/weather_condition")
@@ -64,9 +73,9 @@ for label in time_headway.terms:
     mf = time_headway[label].mf
     plt.plot(time_headway.universe, mf, label=label)
 
-plt.title('Membership Functions of Time Headway')
+plt.title('Membership Functions di Time Headway')
 plt.xlabel('Time Headway [s]')
-plt.ylabel('Membership Degree')
+plt.ylabel('Grado di Appartenenza')
 plt.legend()
 plt.grid(True)
 plt.savefig("./modello_python/assets/plots/membership_fun/time_headway")
@@ -79,9 +88,9 @@ for label in relative_velocity.terms:
     mf = relative_velocity[label].mf
     plt.plot(relative_velocity.universe, mf, label=label)
 
-plt.title('Membership Functions of Relative Velocity')
+plt.title('Membership Functions di Relative Velocity')
 plt.xlabel('Relative Velocity [m/s]')
-plt.ylabel('Membership Degree')
+plt.ylabel('Grado di Appartenenza')
 plt.legend()
 plt.grid(True)
 plt.savefig("./modello_python/assets/plots/membership_fun/relative_velocity")
@@ -93,10 +102,11 @@ for label in acceleration.terms:
     mf = acceleration[label].mf
     plt.plot(acceleration.universe, mf, label=label)
 
-plt.title('Membership Functions of Acceleration')
-plt.xlabel('Acceleration [m/s^2]')
-plt.ylabel('Membership Degree')
-plt.legend()
+plt.title('Membership Functions di Acceleration')
+plt.xlabel('Accelerazione [m/s²]')
+plt.ylabel('Grado di Appartenenza')
+plt.legend(loc="upper left", bbox_to_anchor=(1, 1))
+plt.tight_layout()
 plt.grid(True)
 plt.savefig("./modello_python/assets/plots/membership_fun/acceleration")
 
