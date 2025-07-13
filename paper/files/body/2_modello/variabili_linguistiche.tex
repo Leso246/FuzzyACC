@@ -1,0 +1,96 @@
+\section{Definizione delle Variabili Linguistiche}
+
+Nel modello sono state introdotte quattro variabili linguistiche: tre in \emph{input} e una in \emph{output}.
+\\\\
+Di seguito sono presentate le 3 variabili di \emph{input}.
+
+\subsection{Weather Condition}
+La variabile \texttt{weather\_condition} rappresenta lo stato meteorologico:
+\begin{itemize}
+  \item \textbf{Termini linguistici}: \texttt{good}, \texttt{bad}.
+  \item \textbf{Universo}: \([0,1]\), dove \(0\) corrisponde a \texttt{bad} e \(1\) a \texttt{good}.
+\end{itemize}
+
+\subsection{Time Headway}
+La variabile \texttt{time\_headway} quantifica il tempo necessario affinché il veicolo \emph{ego} 
+percorra la distanza che lo separa dal veicolo \emph{leader}. È definita come:
+\[
+\text{time\_headway} \; [\mathrm{s}]
+= \frac{\text{space\_gap}\;[\mathrm{m}]}{\text{ego\_velocity}\;[\mathrm{m/s}]}
+\]
+dove \(\text{space\_gap}\) è la distanza tra i due veicoli ed \(\text{ego\_velocity}\) è la velocità dell'\emph{ego}. 
+\paragraph{Annotazione} Si osservi che la formula impiega l'assunzione semplificativa 
+secondo cui il veicolo \emph{leader} sia in grado di arrestarsi istantaneamente. 
+Tale ipotesi, evidentemente irrealistica, trascura lo spazio di frenata necessario al \emph{leader}, 
+che contribuirebbe ad aumentare il valore effettivo del \texttt{time\_headway}. Questa approssimazione 
+è tuttavia considerata accettabile nell'ottica di una modellazione semplificata e al fine di ridurre la 
+complessità computazionale senza compromettere in modo significativo la coerenza del modello.
+
+
+\begin{itemize}
+  \item \textbf{Termini linguistici}: \texttt{dangerous}, \texttt{short}, \texttt{adequate}, \texttt{long}, \texttt{very\_long}.
+  \item \textbf{Universo}: \([0,15]\) secondi.  
+        Il valore minimo corrisponde al limite fisico teorico, sebbene sia considerato praticamente irraggiungibile.
+        Il valore massimo è stato determinato sulla base della portata tipica di un front radar sensor prodotto da BOSCH~\cite{bosch_radar}, pari a \(300\,\mathrm{m}\), e di una velocità minima del veicolo \emph{ego} pari a \(70\,\mathrm{km/h}\).  
+        Pertanto, il massimo \texttt{time\_headway} è calcolato come:
+        \[
+            \max(\text{time\_headway}) =
+            \frac{300 \,\mathrm{m}}{\frac{70\,\mathrm{km/h}}{3.6}} = 
+            \frac{300 \,\mathrm{m}}{19.\overline{4}\,\mathrm{m/s}}
+            \approx 15.4\,\mathrm{s}
+        \]
+\end{itemize}
+
+\subsubsection{Motivazioni della Scelta della Variabile} 
+Si è preferito utilizzare la variabile \texttt{time\_headway} piuttosto che introdurre un insieme separato di variabili come 
+\texttt{distanza}, \texttt{velocità ego} e \texttt{velocità leader}, sia per contenere la complessità del sistema riducendo 
+il numero di regole da definire, sia perché le Membership Functions nei sistemi fuzzy non sono progettate per adattarsi 
+dinamicamente in base a uno o più parametri.
+\\\\
+Ad esempio, risulterebbe problematico definire in modo univoco cosa significhi una distanza \texttt{dangerous}: quale intervallo 
+tra \(0\,\mathrm{m}\) e \(300\,\mathrm{m}\) dovrebbe essere considerato tale? La pericolosità della distanza è infatti fortemente 
+dipendente dalla velocità del veicolo.
+\\\\
+Consideriamo la relazione:
+\[
+d_{\mathrm{sicurezza}}\,[\mathrm{m}] = d_{\mathrm{reazione}}\,[\mathrm{m}] + d_{\mathrm{frenata}}\,[\mathrm{m}]
+\]
+dove \(d_{\mathrm{sicurezza}}\) rappresenta la distanza di sicurezza, \(d_{\mathrm{reazione}}\) è lo spazio percorso durante il tempo di reazione (ovvero il tempo necessario affinché il conducente inizi la frenata), e \(d_{\mathrm{frenata}}\) è lo spazio di arresto effettivo.
+\\\\
+Si ha:
+\[
+d_{\mathrm{reazione}} = v \cdot t
+\]
+dove \(v\) è la velocità del veicolo in \(\mathrm{m/s}\) e \(t\) è il tempo di reazione in secondi.
+\\\\
+Lo spazio di frenata è invece espresso da:
+\[
+d_{\mathrm{frenata}} = \frac{v^2}{2\,a\,\mu}
+\]
+dove \(a\) è la decelerazione massima e \(\mu\) è il coefficiente di attrito con il manto stradale (
+in condizioni ottimali pari a 0.8)~\cite{distanza_di_sicurezza_youmath}.
+\\\\
+Se due veicoli sono separati da \(20\,\mathrm{m}\), tale distanza risulta adeguata se la velocità 
+dell'\emph{ego} è pari a \(30\,\mathrm{km/h}\). In tal caso, assumendo un tempo di reazione di \(1\,\mathrm{s}\), 
+un coefficiente di attrito \(\mu=0.8\) e una brusca decelerazione pari a \(1\,g\) (ossia \(a = -9.81\,\mathrm{m/s^2}\)), si ottiene:
+\[
+d_{\mathrm{sicurezza}} = v \cdot t + \frac{v^2}{2\,a\,\mu}
+\]
+dove la velocità deve essere convertita in metri al secondo:
+\[
+v = \frac{30}{3.6} \approx 8.33\,\mathrm{m/s}.
+\]
+Pertanto:
+\[
+d_{\mathrm{sicurezza}} = 8.33 \times 1 + \frac{(8.33)^2}{2 \times 9.81 \times 0.8} \approx 8.33 + \frac{69.4}{15.7} \approx 8.33 + 4.42 \approx 12.75\,\mathrm{m}.
+\]
+Viceversa, alla velocità di \(130\,\mathrm{km/h}\), la medesima distanza di \(20\,\mathrm{m}\) risulterebbe del tutto insufficiente. 
+Ricalcolando infatti la distanza di sicurezza nelle stesse condizioni si ottiene:
+
+\[
+d_{\mathrm{sicurezza}} \approx 119.1\,\mathrm{m}
+\]
+
+\noindent La variabile \texttt{time\_headway} consente di modellare direttamente il tempo che separa i due veicoli 
+indipendentemente dalla loro velocità assoluta o dalla distanza in metri. Di fatto, agisce come una forma di 
+\emph{normalizzazione} del concetto di distanza, rendendolo più interpretabile e stabile all'interno del sistema fuzzy.

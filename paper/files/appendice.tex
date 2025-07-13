@@ -1,0 +1,66 @@
+\chapter{Regole Fuzzy}
+\begin{table}[htbp]
+    \centering
+    \rowcolors{2}{gray!15}{white}
+        \begin{tabular}{|c|c|c|c|}
+            \rowcolor{headerblue}
+            \textcolor{white}{\textbf{Weather\_Condition}} & 
+            \textcolor{white}{\textbf{Time\_Headway}} & 
+            \textcolor{white}{\textbf{Relative\_Velocity}} & 
+            \textcolor{white}{\textbf{Acceleration}} \\
+            bad       & dangerous   & approaching\_fast     & strong\_deceleration \\
+            bad       & dangerous   & approaching          & medium\_deceleration \\
+            bad       & dangerous   & steady               & medium\_deceleration \\
+            bad       & dangerous   & moving\_away         & light\_deceleration \\
+            bad       & dangerous   & moving\_away\_fast   & light\_deceleration \\
+            bad       & short       & approaching\_fast     & strong\_deceleration \\
+            bad       & short       & approaching          & medium\_deceleration \\
+            bad       & short       & steady               & light\_deceleration \\
+            bad       & short       & moving\_away         & zero\_acceleration \\
+            bad       & short       & moving\_away\_fast   & light\_acceleration \\
+            bad       & adequate    & approaching\_fast     & strong\_deceleration \\
+            bad       & adequate    & approaching          & medium\_deceleration \\
+            bad       & adequate    & steady               & zero\_acceleration \\
+            bad       & adequate    & moving\_away         & light\_acceleration \\
+            bad       & adequate    & moving\_away\_fast   & medium\_acceleration \\
+            bad       & long        & approaching\_fast     & medium\_deceleration \\
+            bad       & long        & approaching          & light\_deceleration \\
+            bad       & long        & steady               & zero\_acceleration \\
+            bad       & long        & moving\_away         & light\_acceleration \\
+            bad       & long        & moving\_away\_fast   & medium\_acceleration \\
+            bad       & very\_long  & approaching\_fast     & medium\_deceleration \\
+            bad       & very\_long  & approaching          & light\_deceleration \\
+            bad       & very\_long  & steady               & light\_acceleration \\
+            bad       & very\_long  & moving\_away         & medium\_acceleration \\
+            bad       & very\_long  & moving\_away\_fast   & strong\_acceleration \\
+            good      & dangerous   & approaching\_fast     & medium\_deceleration \\
+            good      & dangerous   & approaching          & light\_deceleration \\
+            good      & dangerous   & steady               & light\_deceleration \\
+            good      & dangerous   & moving\_away         & zero\_acceleration \\
+            good      & dangerous   & moving\_away\_fast   & light\_acceleration \\
+            good      & short       & approaching\_fast     & medium\_deceleration \\
+            good      & short       & approaching          & light\_deceleration \\
+            good      & short       & steady               & zero\_acceleration \\
+            good      & short       & moving\_away         & light\_acceleration \\
+            good      & short       & moving\_away\_fast   & medium\_acceleration \\
+            good      & adequate    & approaching\_fast     & medium\_deceleration \\
+            good      & adequate    & approaching          & light\_deceleration \\
+            good      & adequate    & steady               & zero\_acceleration \\
+            good      & adequate    & moving\_away         & light\_acceleration \\
+            good      & adequate    & moving\_away\_fast   & medium\_acceleration \\
+            good      & long        & approaching\_fast     & light\_deceleration \\
+            good      & long        & approaching          & light\_deceleration \\
+            good      & long        & steady               & light\_acceleration \\
+            good      & long        & moving\_away         & medium\_acceleration \\
+            good      & long        & moving\_away\_fast   & strong\_acceleration \\
+            good      & very\_long  & approaching\_fast     & light\_deceleration \\
+            good      & very\_long  & approaching          & zero\_acceleration \\
+            good      & very\_long  & steady               & light\_acceleration \\
+            good      & very\_long  & moving\_away         & medium\_acceleration \\
+            good      & very\_long  & moving\_away\_fast   & strong\_acceleration \\
+            \hline
+    \end{tabular}
+    \caption{Regole del Sistema Fuzzy}
+    \label{tab:regole_fuzzy}
+\end{table}
+

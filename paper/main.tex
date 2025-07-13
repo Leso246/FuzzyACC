@@ -5,9 +5,12 @@
 \usepackage{hyperref}
 \usepackage[export]{adjustbox} 
 \usepackage{amsmath}
-\usepackage{xcolor}
 \usepackage{changepage}
-
+\usepackage{mathtools}
+\usepackage[table]{xcolor}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{array}
 
 \usepackage{titlesec} % Modifica il titolo del capitolo
 \titleformat{\chapter}[hang]{\huge\bfseries}{\thechapter}{1em}{}
@@ -21,18 +24,39 @@ sorting=none
 ]{biblatex}
 \addbibresource{files/bibliografia.bib}
 
+\definecolor{headerblue}{RGB}{0, 102, 204}
+\definecolor{rowgray}{gray}{0.95}
+
 \begin{document}
-
-% File di frontespizio
-\subfile{files/frontespizio.tex}
-
- % Numerazione delle prima pagina con i numeri romani
-\pagenumbering{roman}
  
-\tableofcontents % Indice
-\listoffigures % Indice delle immagini
-\listoftables % Indice delle tabelle
+    % File di frontespizio
+    \subfile{files/frontespizio.tex}
 
-\printbibliography
+    % Numerazione delle prima pagina con i numeri romani
+    \pagenumbering{roman}
+    
+    \tableofcontents % Indice
+    \listoffigures % Indice delle immagini
+    \listoftables % Indice delle tabelle
+
+    \clearpage
+
+    % Numera le pagine con i numeri arabi e resetta il counter da questa pagina in poi
+    \pagenumbering{arabic} 
+    \setcounter{page}{1}
+
+    \subfile{files/body/0_introduzione.tex}
+    \subfile{files/body/1_stato_arte.tex}
+    \subfile{files/body/2_modello.tex}
+    \subfile{files/body/3_implementazione.tex}
+    \subfile{files/body/4_risultati.tex}
+    \subfile{files/body/5_conclusioni.tex}
+
+    % Test~\cite{bosch_radar}
+
+    \printbibliography 
+
+    \appendix
+    \subfile{files/appendice.tex}
 
 \end{document}
