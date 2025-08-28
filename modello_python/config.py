@@ -1,7 +1,7 @@
 # config.py
 
 # Parametro del filtro
-ALPHA = 0.1
+ALPHA = 0.2
 
 # Soglia accelerazione
 MIN_ACCELERATION = 0.12
@@ -18,6 +18,6 @@ SIM_REAL_PLOTS_PATH = "./modello_python/assets/plots/simulation/real_data_compar
 # Colori per i grafici finali
 EGO_COLOR = 'blue'
 LEADER_COLOR = 'orange'
-DATA_COLOR = "#E60073"
+DATA_COLOR = "#FFD700"
 SECURITY_DISTANCE_QUIZ = 'green'
 SECURITY_DISTANCE_ACI = '#00CCCC'

@@ -10,7 +10,7 @@ def create_fuzzy_system():
     ######################################################
     # DEFINISCE L'UNIVERSO
 
-    time_headway = ctrl.Antecedent(np.arange(0, 15.1, 0.1), 'time_headway')
+    time_headway = ctrl.Antecedent(np.arange(0, 15.6, 0.1), 'time_headway')
     relative_velocity = ctrl.Antecedent(np.arange(-20, +20.1, 0.1), 'relative_velocity')
     weather_condition = ctrl.Antecedent(np.arange(0, 1.01, 0.01), 'weather_condition')
 
@@ -26,7 +26,7 @@ def create_fuzzy_system():
     time_headway['short'] = fuzz.trimf(time_headway.universe, [1.0, 1.8, 3.0])
     time_headway['adequate'] = fuzz.trimf(time_headway.universe, [2.5, 4.0, 5.0])
     time_headway['long'] = fuzz.trimf(time_headway.universe, [4.5, 6.0, 7.0])
-    time_headway['very_long'] = fuzz.trapmf(time_headway.universe, [6.5, 7.0, 15.1, 15.1])
+    time_headway['very_long'] = fuzz.trapmf(time_headway.universe, [6.5, 7.0, 15.6, 15.6])
 
     relative_velocity['approaching_fast'] = fuzz.trapmf(relative_velocity.universe, [-20.0, -20.0, -10.0, -5.0])
     relative_velocity['approaching'] = fuzz.trimf(relative_velocity.universe, [-7.0, -3.0, -0.5])

@@ -31,9 +31,9 @@ def generate_sim_plots():
 
     # Grafico ego_velocity VS leader_velocity
     plt.figure(figsize=(16, 8))
-    plt.plot(result['time'], result['ego_velocity'], label='Ego Velocity', color=EGO_COLOR)
+    plt.plot(result['time'], result['ego_velocity'], label='Ego Velocity Simulata', color=EGO_COLOR)
     plt.plot(result['time'], result['leader_velocity'], label='Leader Velocity', color=LEADER_COLOR)
-    plt.title('Confronto Ego Velocity e Leader Velocity')
+    plt.title('Confronto Ego Velocity Simulata e Leader Velocity')
     plt.xlabel('Tempo [s]')
     plt.ylabel('Velocità [m/s]')
     plt.xticks(np.arange(0, 899, step=50))
@@ -44,8 +44,8 @@ def generate_sim_plots():
     # Grafico ego_acceleration VS leader_acceleration
     plt.figure(figsize=(16, 8))
     plt.plot(result['time'], result['leader_acceleration'], label='Leader Acceleration', color=LEADER_COLOR)
-    plt.plot(result['time'], result['ego_acceleration'], label='Ego Acceleration', color=EGO_COLOR)
-    plt.title('Confronto Ego Acceleration e Leader Acceleration')
+    plt.plot(result['time'], result['ego_acceleration'], label='Ego Acceleration Simulata', color=EGO_COLOR)
+    plt.title('Confronto Ego Acceleration Simulata e Leader Acceleration')
     plt.xlabel('Tempo [s]')
     plt.ylabel('Accelerazione [m/s²]')
     plt.xticks(np.arange(0, 899, step=50))
