@@ -7,7 +7,11 @@ Di seguito sono presentate le 3 variabili di \emph{input}.
 \subsection{Weather Condition}
 La variabile \texttt{weather\_condition} rappresenta lo stato meteorologico:
 \begin{itemize}
-  \item \textbf{Termini linguistici}: \texttt{good}, \texttt{bad}.
+  \item \textbf{Termini linguistici}: 
+    \begin{itemize}
+      \item \texttt{good}
+      \item \texttt{bad}
+    \end{itemize}
   \item \textbf{Universo}: \([0,1]\), dove \(0\) corrisponde a \texttt{bad} e \(1\) a \texttt{good}.
 \end{itemize}
 
@@ -16,27 +20,34 @@ La variabile \texttt{time\_headway} quantifica il tempo necessario affinché il 
 percorra la distanza che lo separa dal veicolo \emph{leader}. È definita come:
 \[
 \text{time\_headway} \; [\mathrm{s}]
-= \frac{\text{space\_gap}\;[\mathrm{m}]}{\text{ego\_velocity}\;[\mathrm{m/s}]}
+= \frac{\text{space\_gap}\;[\mathrm{m}]}{\text{ego\_velocity}\;[\frac{\mathrm{m}}{\mathrm{s}}]}
 \]
 dove \(\text{space\_gap}\) è la distanza tra i due veicoli ed \(\text{ego\_velocity}\) è la velocità dell'\emph{ego}. 
 \paragraph{Annotazione} Si osservi che la formula impiega l'assunzione semplificativa 
 secondo cui il veicolo \emph{leader} sia in grado di arrestarsi istantaneamente. 
 Tale ipotesi, evidentemente irrealistica, trascura lo spazio di frenata necessario al \emph{leader}, 
 che contribuirebbe ad aumentare il valore effettivo del \texttt{time\_headway}. Questa approssimazione 
-è tuttavia considerata accettabile nell'ottica di una modellazione semplificata e al fine di ridurre la 
-complessità computazionale senza compromettere in modo significativo la coerenza del modello.
+è tuttavia considerata accettabile nell'ottica di una modellazione semplificata e risulta coerente con quanto 
+previsto dalla normativa ACC ISO 15622:2018 \cite{iso15622}.
 
 
 \begin{itemize}
-  \item \textbf{Termini linguistici}: \texttt{dangerous}, \texttt{short}, \texttt{adequate}, \texttt{long}, \texttt{very\_long}.
-  \item \textbf{Universo}: \([0,15]\) secondi.  
+  \item \textbf{Termini linguistici}:
+    \begin{itemize}
+      \item \texttt{dangerous}
+      \item \texttt{short}
+      \item \texttt{adequate}
+      \item \texttt{long}
+      \item \texttt{very\_long}
+    \end{itemize}
+  \item \textbf{Universo}: \([0,15.5]\) $s$.  
         Il valore minimo corrisponde al limite fisico teorico, sebbene sia considerato praticamente irraggiungibile.
         Il valore massimo è stato determinato sulla base della portata tipica di un front radar sensor prodotto da BOSCH~\cite{bosch_radar}, pari a \(300\,\mathrm{m}\), e di una velocità minima del veicolo \emph{ego} pari a \(70\,\mathrm{km/h}\).  
         Pertanto, il massimo \texttt{time\_headway} è calcolato come:
         \[
-            \max(\text{time\_headway}) =
-            \frac{300 \,\mathrm{m}}{\frac{70\,\mathrm{km/h}}{3.6}} = 
-            \frac{300 \,\mathrm{m}}{19.\overline{4}\,\mathrm{m/s}}
+            \max(\text{time\_headway})\,[\mathrm{s}] =
+            \frac{300 \,\mathrm{m}}{\frac{70\,[\frac{\mathrm{km}}{\mathrm{h}}]}{3.6}} = 
+            \frac{300 \,\mathrm{m}}{19.\overline{4}\,[\frac{\mathrm{m}}{\mathrm{s}}]}
             \approx 15.4\,\mathrm{s}
         \]
 \end{itemize}
@@ -67,8 +78,7 @@ Lo spazio di frenata è invece espresso da:
 \[
 d_{\mathrm{frenata}} = \frac{v^2}{2\,a\,\mu}
 \]
-dove \(a\) è la decelerazione massima e \(\mu\) è il coefficiente di attrito con il manto stradale (
-in condizioni ottimali pari a 0.8)~\cite{distanza_di_sicurezza_youmath}.
+dove \(a\) è la decelerazione massima e \(\mu\) è il coefficiente di attrito con il manto stradale (in condizioni ottimali pari a 0.8)~\cite{distanza_di_sicurezza_youmath}.
 \\\\
 Se due veicoli sono separati da \(20\,\mathrm{m}\), tale distanza risulta adeguata se la velocità 
 dell'\emph{ego} è pari a \(30\,\mathrm{km/h}\). In tal caso, assumendo un tempo di reazione di \(1\,\mathrm{s}\), 
@@ -78,11 +88,11 @@ d_{\mathrm{sicurezza}} = v \cdot t + \frac{v^2}{2\,a\,\mu}
 \]
 dove la velocità deve essere convertita in metri al secondo:
 \[
-v = \frac{30}{3.6} \approx 8.33\,\mathrm{m/s}.
+v = \frac{30}{3.6} \approx 8.\overline{33}\,\left[\tfrac{\mathrm{m}}{\mathrm{s}}\right].
 \]
 Pertanto:
 \[
-d_{\mathrm{sicurezza}} = 8.33 \times 1 + \frac{(8.33)^2}{2 \times 9.81 \times 0.8} \approx 8.33 + \frac{69.4}{15.7} \approx 8.33 + 4.42 \approx 12.75\,\mathrm{m}.
+d_{\mathrm{sicurezza}} = 8.\overline{33} \times 1 + \frac{(8.\overline{33})^2}{2 \times 9.81 \times 0.8} \approx 8.\overline{33} + \frac{69.4}{15.7} \approx 8.\overline{33} + 4.42 \approx 12.75\,\mathrm{m}.
 \]
 Viceversa, alla velocità di \(130\,\mathrm{km/h}\), la medesima distanza di \(20\,\mathrm{m}\) risulterebbe del tutto insufficiente. 
 Ricalcolando infatti la distanza di sicurezza nelle stesse condizioni si ottiene:
@@ -94,3 +104,58 @@ d_{\mathrm{sicurezza}} \approx 119.1\,\mathrm{m}
 \noindent La variabile \texttt{time\_headway} consente di modellare direttamente il tempo che separa i due veicoli 
 indipendentemente dalla loro velocità assoluta o dalla distanza in metri. Di fatto, agisce come una forma di 
 \emph{normalizzazione} del concetto di distanza, rendendolo più interpretabile e stabile all'interno del sistema fuzzy.
+
+\subsection{Relative Velocity}
+La variabile \texttt{relative\_velocity} rappresenta la velocità relativa del veicolo \emph{leader} rispetto al veicolo \emph{ego}.
+Essa è definita come:
+\[
+relative\_velocity = leader\_velocity - ego\_velocity
+\]
+\begin{itemize}
+  \item \textbf{Termini linguistici}:
+    \begin{itemize}
+      \item \texttt{strong\_deceleration}
+      \item \texttt{medium\_deceleration}
+      \item \texttt{light\_deceleration}
+      \item \texttt{zero\_acceleration}
+      \item \texttt{light\_acceleration}
+      \item \texttt{medium\_acceleration}
+      \item \texttt{strong\_acceleration}
+    \end{itemize}
+  \item \textbf{Universo}: \([-23.0,+23.0]\) $\frac{m}{s}$
+\end{itemize}
+Gli estremi dell'universo sono stati determinati calcolando, in valore assoluto, la massima differenza di velocità tra il veicolo
+\emph{leader} e il veicolo \emph{ego}, come mostrato di seguito:
+\[
+  \max(\text{relative\_velocity}) \,\left[\tfrac{\mathrm{m}}{\mathrm{s}}\right]
+  = \frac{150\,\left[\tfrac{\mathrm{km}}{\mathrm{h}}\right] - 70\,\left[\tfrac{\mathrm{km}}{\mathrm{h}}\right]}{3.6}
+  = 22.\overline{2}\,\left[\tfrac{\mathrm{m}}{\mathrm{s}}\right]
+\]
+
+\vspace{10mm}
+\noindent Di seguito viene presentata l'unica variabile in \emph{output}.
+\subsection{Acceleration}
+La variabile \texttt{acceleration} rappresenta l'accelerazione (positiva, negativa o nulla) che viene impartita al veicolo:
+\begin{itemize}
+  \item \textbf{Termini linguistici}:
+    \begin{itemize}
+      \item \texttt{strong\_deceleration}
+      \item \texttt{medium\_deceleration}
+      \item \texttt{light\_deceleration}
+      \item \texttt{zero\_acceleration}
+      \item \texttt{light\_acceleration}
+      \item \texttt{medium\_acceleration}
+      \item \texttt{strong\_acceleration}
+    \end{itemize}
+  \item \textbf{Universo}: \([-3.0,+3.0]\) $\frac{m}{s^2}$
+\end{itemize}
+Un'accelerazione al di fuori di tale intervallo è considerata non confortevole e quindi incompatibile con l'obiettivo di comfort che il sistema ACC deve garantire.  
+In particolare:
+\begin{itemize}
+  \item Una \textbf{decelerazione inferiore a \(-3\,\tfrac{\mathrm{m}}{\mathrm{s^2}}\)} è considerata troppo brusca 
+  \textcolor{red}{CERCARE MAX DEC CONFORTEVOLE}; 
+  in questi casi l'intervento viene demandato all'AEB (Autonomous Emergency Braking), un sistema ADAS distinto 
+  incaricato della gestione delle frenate di emergenza.
+  \item Un'accelerazione \textbf{superiore a \(+3\,\tfrac{\mathrm{m}}{\mathrm{s^2}}\)} è considerata eccessiva e non 
+  confortevole per il conducente e i passeggeri.
+\end{itemize}
