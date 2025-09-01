@@ -64,7 +64,9 @@ previsto dalla normativa ACC ISO 15622:2018 \cite{iso15622}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{membership_fun/time_headway.png}
+    \adjustbox{center}{
+      \includegraphics[width=\linewidth]{membership_fun/time_headway.png}
+    }
     \caption{Membership Functions di Time Headway}
     \label{Fig:mf_time_headway}
 \end{figure}
@@ -220,15 +222,18 @@ Gli estremi dell'universo sono stati determinati calcolando, in valore assoluto,
 \noindent In Figura~\ref{Fig:mf_relative_velocity} sono riportate le Membership Functions associate alla variabile \texttt{relative\_velocity}.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{membership_fun/relative_velocity.png}
+    \adjustbox{center}{
+      \includegraphics[width=\linewidth]{membership_fun/relative_velocity.png}
+    }
     \caption{Membership Functions di Relative Velocity}
     \label{Fig:mf_relative_velocity}
 \end{figure}
 
 \vspace{10mm}
 \noindent Di seguito viene presentata l'unica variabile in \emph{output}.
+
 \subsection{Acceleration}
-La variabile \texttt{acceleration} rappresenta l'accelerazione (positiva, negativa o nulla) che viene impartita al veicolo:
+La variabile \texttt{acceleration} rappresenta l'accelerazione (positiva, negativa o nulla) impartita al veicolo:
 \begin{itemize}
   \item \textbf{Termini linguistici}:
     \begin{itemize}
@@ -240,6 +245,9 @@ La variabile \texttt{acceleration} rappresenta l'accelerazione (positiva, negati
       \item \texttt{medium\_acceleration}: triangolare definita dai punti [1.0, 1.8, 2.5].
       \item \texttt{strong\_acceleration}: trapezoidale definita dai punti [2.0, 2.5, 3.0, 3.0].
     \end{itemize}
+    \noindent Si noti che per il termine \texttt{zero\_acceleration} è stata scelta una funzione \textbf{trapezoidale}, anziché triangolare.  
+  Questa decisione consente di rappresentare un intervallo più ampio di valori prossimi allo zero come “assenza di accelerazione”, evitando che piccolissime variazioni (inevitabili nei sensori o nel modello) vengano interpretate come continue micro-accelerazioni o micro-decelerazioni.  
+  In questo modo il sistema risulta più stabile e garantisce una guida percepita come più confortevole dal conducente.
   \item \textbf{Universo}: \([-3.0,+3.0]\)\,$\frac{\mathrm{m}}{\mathrm{s^2}}$
 \end{itemize}
 Un'accelerazione al di fuori di tale intervallo è considerata non confortevole e quindi incompatibile con l'obiettivo di comfort che il sistema ACC deve garantire.  
@@ -256,7 +264,9 @@ In particolare:
 \noindent In Figura~\ref{Fig:mf_acceleration} sono riportate le Membership Functions associate alla variabile \texttt{acceleration}.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{membership_fun/acceleration.png}
+    \adjustbox{center}{
+      \includegraphics[width=1.2\textwidth]{membership_fun/acceleration.png}
+    }  
     \caption{Membership Functions di Acceleration}
     \label{Fig:mf_acceleration}
 \end{figure}

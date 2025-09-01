@@ -19,3 +19,20 @@ sulle autostrade italiane (generalmente \(130\,\text{$\frac{\mathrm{km}}{\mathrm
 \subfile{2_modello/variabili_linguistiche_e_mf}
 
 \section{Creazione delle Regole}
+Per la definizione delle regole di controllo sono state considerate tutte le possibili combinazioni dei termini linguistici 
+delle variabili in input, in modo da garantire la copertura di tutti i possibili scenari.  
+Il numero totale delle regole si ottiene moltiplicando il numero di termini di ciascuna variabile di input:
+\[
+n^\circ \text{ regole} = 2 \times 5 \times 5 = 50
+\]
+
+\noindent Tale numero è relativamente contenuto per un controllore fuzzy; per questo motivo si è deciso di non adottare un 
+approccio a cascata, preferendo invece una singola base di regole che 
+mantiene la struttura del sistema più semplice.  
+\\\\
+\noindent Una volta generate tutte le combinazioni, è stato quindi assegnato il termine linguistico di output ritenuto più appropriato 
+(relativo alla variabile \texttt{acceleration}).    
+L'elenco completo delle regole è riportato in Appendice~\ref{tab:regole_fuzzy}.  
+\\\\
+\noindent Si evidenzia che, a parità di valore delle altre variabili, in condizioni meteorologiche peggiori sono stati scelti 
+output di accelerazione più prudenti, al fine di riflettere una maggiore attenzione alla sicurezza.
