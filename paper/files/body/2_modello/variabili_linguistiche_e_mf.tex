@@ -129,19 +129,22 @@ indipendentemente dalla loro velocità assoluta o dalla distanza in metri. Di fa
 \subsubsection{Scelta degli intervalli} 
 Per definire gli intervalli della variabile linguistica \texttt{time\_headway}, 
 ci si è basati sulla cosiddetta \emph{regola dei 3 secondi}~\cite{benzinazero2016}, 
-una raccomandazione ampiamente utilizzata nella sicurezza stradale per garantire una distanza adeguata dal veicolo che precede. 
-Questa regola stabilisce che, indipendentemente dalla velocità, il conducente dovrebbe mantenere almeno tre secondi di distanza 
-temporale dal veicolo antistante, in modo da avere il tempo necessario per reagire in caso di frenata improvvisa. 
-
-\noindent Seguendo tale principio, si è costruito l'intervallo per \texttt{adequate}, impostandolo leggermente più alto per aumentare la sicurezza. 
-Successivamente, sono stati definiti gli intervalli per le categorie \texttt{dangerous} e \texttt{short}, 
-e infine quelli per \texttt{long} e \texttt{very\_long}. 
+un criterio ampiamente adottato nella sicurezza stradale per garantire una distanza adeguata dal veicolo che precede. 
+Tale regola stabilisce che, indipendentemente dalla velocità, il conducente dovrebbe mantenere almeno tre secondi di distanza 
+temporale dal veicolo antistante, assicurando così il tempo necessario per reagire in caso di frenata improvvisa. 
 \\\\
-\noindent Per visualizzare la correttezza degli intervalli scelti, la Tabella \ref{tab:d_sicurezza_mantenuta} confronta la distanza da mantenere 
-secondo la regola dei 3 secondi con la distanza effettivamente mantenuta considerando un determinato \texttt{time\_headway}. 
-È inoltre riportata la differenza percentuale tra le due misure. 
-Si segnala che per il calcolo di entrambe le distanze è stata utilizzata l'equazione \ref{eq:d_sicurezza} riportata in precedenza, 
-impostando sempre $a = 9.81~\mathrm{m/s^2}$ e $\mu = 0.8$.
+\noindent Partendo da questo principio, è stato definito l'intervallo per la categoria \texttt{adequate}. 
+Successivamente, sono stati impostati gli intervalli per le categorie \texttt{dangerous} e \texttt{short}, 
+seguiti da quelli per \texttt{long} e \texttt{very\_long}. 
+\\\\
+\noindent Per verificare la correttezza degli intervalli scelti, la Tabella \ref{tab:d_sicurezza_mantenuta} 
+confronta la distanza da mantenere calcolata tramite l'equazione \ref{eq:d_sicurezza} con la distanza effettivamente mantenuta 
+per i diversi valori di \texttt{ego\_velocity} e \texttt{time\_headway}. 
+Nella tabella è inoltre riportata la differenza percentuale tra le due misure. 
+\\\\
+\noindent Si sottolinea che, per il calcolo di entrambe le distanze, sono stati utilizzati i valori $a = 9.81~\mathrm{m/s^2}$ 
+e $\mu = 0.8$ come in precedenza, modificando però il tempo di reazione da $1~\mathrm{s}$ a $2~\mathrm{s}$, 
+in quanto si presuppone che, in autostrada con ACC attivo, il conducente presti un livello di attenzione ridotto.
 
 \begin{table}[h!]
 \centering
@@ -154,36 +157,36 @@ impostando sempre $a = 9.81~\mathrm{m/s^2}$ e $\mu = 0.8$.
 \textbf{\makecell{Distanza\\mantenuta [m]}} & 
 \textbf{\makecell{Differenza \%}} \\
 \hline
-\multirow{8}{*}{70} & 0.5 & \multirow{8}{*}{82.421} & 33.810 & \textcolor{red}{-143.776} \\
-                     & 1.0 &  & 43.533 & \textcolor{red}{-89.333}  \\
-                     & 2.0 &  & 62.977 & \textcolor{red}{-30.875}  \\
-                     & 3.0 &  & 82.421 & 0.000    \\
-                     & 4.0 &  & 101.866 & \textcolor[rgb]{0.0,0.5,0.0}{+19.088}  \\
-                     & 7.0 &  & 160.199 & \textcolor[rgb]{0.0,0.5,0.0}{+48.551}  \\
-                     & 10.0 &  & 218.533 & \textcolor[rgb]{0.0,0.5,0.0}{+62.284} \\
-                     & 15.0 &  & 315.755 & \textcolor[rgb]{0.0,0.5,0.0}{+73.897} \\
+\multirow{8}{*}{70} & 0.5 & \multirow{8}{*}{62.977} & 33.810 & \textcolor{red}{-86.266} \\
+                     & 1.0 &  & 43.533 & \textcolor{red}{-44.666}  \\
+                     & 2.0 &  & 62.977 & 0.000  \\
+                     & 3.0 &  & 82.421 & \textcolor[rgb]{0.0,0.5,0.0}{+23.591}    \\
+                     & 4.0 &  & 101.866 & \textcolor[rgb]{0.0,0.5,0.0}{+38.177}  \\
+                     & 7.0 &  & 160.199 & \textcolor[rgb]{0.0,0.5,0.0}{+60.688}  \\
+                     & 10.0 &  & 218.533 & \textcolor[rgb]{0.0,0.5,0.0}{+71.182} \\
+                     & 15.0 &  & 315.755 & \textcolor[rgb]{0.0,0.5,0.0}{+80.055} \\
 \hline
-\multirow{8}{*}{110} & 0.5 & \multirow{8}{*}{151.149} & 74.761 & \textcolor{red}{-102.178} \\
-                     & 1.0 &  & 90.038 & \textcolor{red}{-67.872}  \\
-                     & 2.0 &  & 120.594 & \textcolor{red}{-25.338} \\
-                     & 3.0 &  & 151.149 & 0.000   \\
-                     & 4.0 &  & 181.705 & \textcolor[rgb]{0.0,0.5,0.0}{+16.816}  \\
-                     & 7.0 &  & 273.372 & \textcolor[rgb]{0.0,0.5,0.0}{+44.709}  \\
-                     & 10.0 &  & 365.038 & \textcolor[rgb]{0.0,0.5,0.0}{+58.594} \\
-                     & 15.0 &  & 517.816 & \textcolor[rgb]{0.0,0.5,0.0}{+70.810} \\
+\multirow{8}{*}{110} & 0.5 & \multirow{8}{*}{120.594} & 74.761 & \textcolor{red}{-61.307} \\
+                     & 1.0 &  & 90.038 & \textcolor{red}{-33.936}  \\
+                     & 2.0 &  & 120.594 & 0.000 \\
+                     & 3.0 &  & 151.149 & \textcolor[rgb]{0.0,0.5,0.0}{+20.215}   \\
+                     & 4.0 &  & 181.705 & \textcolor[rgb]{0.0,0.5,0.0}{+33.632}  \\
+                     & 7.0 &  & 273.372 & \textcolor[rgb]{0.0,0.5,0.0}{+55.886}  \\
+                     & 10.0 &  & 365.038 & \textcolor[rgb]{0.0,0.5,0.0}{+66.964} \\
+                     & 15.0 &  & 517.816 & \textcolor[rgb]{0.0,0.5,0.0}{+76.711} \\
 \hline
-\multirow{8}{*}{150} & 0.5 & \multirow{8}{*}{235.609} & 131.442 & \textcolor{red}{-79.249} \\
-                     & 1.0 &  & 152.275 & \textcolor{red}{-54.725} \\
-                     & 2.0 &  & 193.942 & \textcolor{red}{-21.484} \\
-                     & 3.0 &  & 235.609 & 0.000   \\
-                     & 4.0 &  & 277.275 & \textcolor[rgb]{0.0,0.5,0.0}{+15.027}  \\
-                     & 7.0 &  & 402.275 & \textcolor[rgb]{0.0,0.5,0.0}{+41.431}  \\
-                     & 10.0 &  & 527.275 & \textcolor[rgb]{0.0,0.5,0.0}{+55.316} \\
-                     & 15.0 &  & 735.609 & \textcolor[rgb]{0.0,0.5,0.0}{+67.971} \\
+\multirow{8}{*}{150} & 0.5 & \multirow{8}{*}{193.942} & 131.442 & \textcolor{red}{-47.550} \\
+                     & 1.0 &  & 152.275 & \textcolor{red}{-27.363} \\
+                     & 2.0 &  & 193.942 & 0.000 \\
+                     & 3.0 &  & 235.609 & \textcolor[rgb]{0.0,0.5,0.0}{+17.685}   \\
+                     & 4.0 &  & 277.275 & \textcolor[rgb]{0.0,0.5,0.0}{+30.054}  \\
+                     & 7.0 &  & 402.275 & \textcolor[rgb]{0.0,0.5,0.0}{+51.789}  \\
+                     & 10.0 &  & 527.275 & \textcolor[rgb]{0.0,0.5,0.0}{+63.218} \\
+                     & 15.0 &  & 735.609 & \textcolor[rgb]{0.0,0.5,0.0}{+73.635} \\
 \hline
 \end{tabular}
 }
-\caption{Confronto tra distanza da mantenere secondo la regola dei 3 secondi e distanza mantenuta.}
+\caption{Confronto tra distanza di sicurezza da mantenere e distanza mantenuta.}
 \label{tab:d_sicurezza_mantenuta}
 \end{table}
 
@@ -224,7 +227,7 @@ Gli estremi dell'universo sono stati determinati calcolando, in valore assoluto,
 \begin{figure}[H]
     \centering
     \adjustbox{center}{
-      \includegraphics[width=\linewidth]{membership_fun/relative_velocity.png}
+      \includegraphics[width=1.1\linewidth]{membership_fun/relative_velocity.png}
     }
     \caption{Membership Functions di Relative Velocity}
     \label{Fig:mf_relative_velocity}

@@ -1,1 +1,44 @@
 \chapter{Implementazione}
+
+Il modello è stato implementato in \texttt{Python} utilizzando la libreria \texttt{scikit-fuzzy}.  
+L'intero codice sorgente è disponibile su \href{https://github.com/Leso246/FuzzyACC}{GitHub}.
+\\\\
+\noindent L'output del sistema fuzzy non è stata utilizzato direttamente, ma sottoposto a un \emph{filtro passa-basso} 
+al fine di ridurre la variabilità rapida del segnale ed aumentare il comfort percepito dal conducente.  
+Il filtro è descritto dalla seguente equazione:
+
+\[
+a_{f}(t) = \alpha \cdot a(t) + (1 - \alpha) \cdot a_{f}(t-1),
+\]
+
+\noindent dove:
+\begin{itemize}
+    \item $a_{f}(t)$ rappresenta l'accelerazione filtrata
+    \item $\alpha = 0.1$ rappresenta il coefficiente di smoothing scelto
+    \item $a(t)$ rappresenta l'accelerazione fuzzy grezza in output
+    \item $a(t-1)$ rappresenta l'accelerazione filtrata al tempo precedente
+\end{itemize}
+Una visualizzazione interattiva del funzionamento di tale filtro è disponibile 
+su \href{https://www.geogebra.org/m/tb88mqrm}{GeoGebra} \cite{geogebraEWMA}.
+\\\\
+\noindent Inoltre, per eliminare oscillazioni di bassa entità, tutte le accelerazioni con valore assoluto inferiore a $0.12 \, m/s^2$ 
+sono state poste pari a zero.  
+Questa soglia consente di evitare micro-variazioni potenzialmente fastidiose, si noti che un valore troppo elevato potrebbe
+introdurre accelerazioni più brusche nel momento in cui il sistema reagisce a variazioni significative.
+\\\\
+\noindent Sia la soglia di $0.12 \, m/s^2$ sia il coefficiente $\alpha = 0.1$ sono stati scelti empiricamente tramite test, 
+al fine di bilanciare la reattività del sistema con la stabilità e il comfort del conducente.
+
+\section{Dataset di riferimento e calcoli preliminari}
+Per verificare la bontà del modello, è stato utilizzato un dataset pubblico del 2019 \cite{wang2019acc_dataset} dove sono stati raccolti 
+dati da un veicolo dotato di ACC su un tratto di Interstate-65 (un'autostrada statunitense) per 15 minuti, 
+direttamente tramite l'unità radar di serie del veicolo, acquisendo informazioni tramite il CAN bus.  
+\\\\
+\noindent In particolare, il dataset include le seguenti 5 colonne:
+\begin{itemize}
+    \item \textbf{timestamps} [s]: istanti di campionamento (frequenza di $10\, \mathrm{Hz}$)
+    \item \textbf{ego\_velocity} [m/s]: velocità del veicolo \emph{ego}
+    \item \textbf{leader\_velocity} [m/s]: velocità del veicolo \emph{ego}
+    \item \textbf{space\_gap} [m]: distanza tra i veicoli
+    \item \textbf{ACC command acceleration} [m/s²]: accelerazione richiesta dall'ACC
+\end{itemize}
