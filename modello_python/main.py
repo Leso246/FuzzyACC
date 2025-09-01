@@ -41,7 +41,6 @@ if __name__ == "__main__":
         tight_legend=True
     )
 
-
     # Avvia la simulazione
     run_simulation(system)
 

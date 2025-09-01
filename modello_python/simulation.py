@@ -16,7 +16,7 @@ def run_simulation(system):
     leader_velocity_column = df['leader_velocity']
 
     # Valori inziali
-    leader_velocity = df['leader_velocity'][0]
+    leader_velocity =  leader_velocity_column[0]
     ego_velocity = df['ego_velocity'][0]
     space_gap = df['space_gap'][0]
 

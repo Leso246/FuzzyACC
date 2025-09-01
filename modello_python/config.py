@@ -1,7 +1,7 @@
 # config.py
 
 # Parametro del filtro
-ALPHA = 0.2
+ALPHA = 0.1
 
 # Soglia accelerazione
 MIN_ACCELERATION = 0.12

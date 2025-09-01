@@ -1,6 +1,6 @@
 import pandas as pd
 
-df = pd.read_csv("./modello_python/assets/data/data.csv")
+df = pd.read_csv("./modello_python/assets/dataset/data.csv")
 
 print("Initial Ego Velocity: ", df['ego_velocity'][0])
 print("Initial Leader Velocity: ", df['leader_velocity'][0])

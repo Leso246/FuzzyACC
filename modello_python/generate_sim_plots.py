@@ -13,7 +13,8 @@ def generate_sim_plots():
     data = pd.DataFrame({
         "time": data_df["time"],
         "ego_velocity": data_df["ego_velocity"],
-        "ego_acceleration": np.nan,
+        "ego_acceleration": data_df["acc_acceleration"],
+        "actual_ego_acceleration": np.nan,
         "space_gap": data_df["space_gap"],
         "security_distance_quiz": np.nan,
         "security_distance_aci": np.nan
@@ -22,14 +23,14 @@ def generate_sim_plots():
 
     for i in range(1, len(data_df)):
         time_difference = data_df["time"][i] - data_df["time"][i - 1]
-        ego_acceleration = (data_df["ego_velocity"][i] - data_df["ego_velocity"][i - 1]) / time_difference
+        actual_ego_acceleration = (data_df["ego_velocity"][i] - data_df["ego_velocity"][i - 1]) / time_difference
 
-        data.loc[i, "ego_acceleration"] = ego_acceleration
+        data.loc[i, "actual_ego_acceleration"] = actual_ego_acceleration
         data.loc[i, "security_distance_quiz"] = ((data["ego_velocity"][i] * 3.6) / 10) * 3
         data.loc[i, "security_distance_aci"] = pow(((data["ego_velocity"][i] * 3.6) / 10), 2)
 
 
-    # Grafico ego_velocity VS leader_velocity
+    # Grafico ego_velocity simulata VS leader_velocity
     plt.figure(figsize=(16, 8))
     plt.plot(result['time'], result['ego_velocity'], label='Ego Velocity Simulata', color=EGO_COLOR)
     plt.plot(result['time'], result['leader_velocity'], label='Leader Velocity', color=LEADER_COLOR)
@@ -41,7 +42,7 @@ def generate_sim_plots():
     plt.grid(True)
     plt.savefig(SIM_LEAD_PLOTS_PATH + "/velocity")
 
-    # Grafico ego_acceleration VS leader_acceleration
+    # Grafico ego_acceleration simulata VS leader_acceleration
     plt.figure(figsize=(16, 8))
     plt.plot(result['time'], result['leader_acceleration'], label='Leader Acceleration', color=LEADER_COLOR)
     plt.plot(result['time'], result['ego_acceleration'], label='Ego Acceleration Simulata', color=EGO_COLOR)
@@ -68,7 +69,7 @@ def generate_sim_plots():
     plt.figure(figsize=(16, 8))
     plt.plot(result['time'], result['ego_velocity'], label='Ego Velocity Simulata', color=EGO_COLOR)
     plt.plot(data['time'], data['ego_velocity'], label='Ego Velocity Reale', color=DATA_COLOR)
-    plt.title('Confronto Ego Velocity simulata e reale')
+    plt.title('Confronto Ego Velocity Simulata e Reale')
     plt.xlabel('Tempo [s]')
     plt.ylabel('Velocità [m/s]')
     plt.xticks(np.arange(0, 899, step=50))
@@ -76,17 +77,41 @@ def generate_sim_plots():
     plt.grid(True)
     plt.savefig(SIM_REAL_PLOTS_PATH + "/velocity")
 
-    # Grafico ego_acceleration VS ego_acceleration_data
+    # Grafico ego_acceleration VS ego_acceleration_impartita
     plt.figure(figsize=(16, 8))
-    plt.plot(data['time'], data['ego_acceleration'], label='Ego Acceleration Reale', color=DATA_COLOR)
     plt.plot(result['time'], result['ego_acceleration'], label='Ego Acceleration Simulata', color=EGO_COLOR)
-    plt.title('Confronto Ego Acceleration simulata e reale')
+    plt.plot(data['time'], data['ego_acceleration'], label='Ego Acceleration Reale Impartita', color=DATA_COLOR)
+    plt.title('Confronto Ego Acceleration Simulata e Reale Impartita')
     plt.xlabel('Tempo [s]')
     plt.ylabel('Accelerazione [m/s²]')
     plt.xticks(np.arange(0, 899, step=50))
     plt.legend()
     plt.grid(True)
-    plt.savefig(SIM_REAL_PLOTS_PATH + "/acceleration")
+    plt.savefig(SIM_REAL_PLOTS_PATH + "/acceleration_impartita")
+
+    # Grafico ego_acceleration VS ego_acceleration_data_effettiva
+    plt.figure(figsize=(16, 8))
+    plt.plot(data['time'], data['actual_ego_acceleration'], label='Ego Acceleration Reale Effettiva', color="#800080")
+    plt.plot(result['time'], result['ego_acceleration'], label='Ego Acceleration Simulata', color=EGO_COLOR)
+    plt.title('Confronto Ego Acceleration Simulata e Reale Effettiva')
+    plt.xlabel('Tempo [s]')
+    plt.ylabel('Accelerazione [m/s²]')
+    plt.xticks(np.arange(0, 899, step=50))
+    plt.legend()
+    plt.grid(True)
+    plt.savefig(SIM_REAL_PLOTS_PATH + "/acceleration_effettiva")
+
+        # Grafico ego_acceleration_data_impartita VS ego_acceleration_data_effettiva
+    plt.figure(figsize=(16, 8))
+    plt.plot(data['time'], data['actual_ego_acceleration'], label='Ego Acceleration Reale Effettiva', color="#800080")
+    plt.plot(data['time'], data['ego_acceleration'], label='Ego Acceleration Reale Impartita', color=DATA_COLOR)
+    plt.title('Confronto Ego Acceleration Reale Simulata ed Effettiva')
+    plt.xlabel('Tempo [s]')
+    plt.ylabel('Accelerazione [m/s²]')
+    plt.xticks(np.arange(0, 899, step=50))
+    plt.legend()
+    plt.grid(True)
+    plt.savefig(SIM_REAL_PLOTS_PATH + "/acceleration_effettiva_impartita")
 
     # Grafico space_gap VS space_gap_data
     plt.figure(figsize=(16, 8))
@@ -105,7 +130,8 @@ def generate_sim_plots():
     plt.plot(result['time'], result['space_gap'], label='Space Gap Simulato', color=EGO_COLOR)
     plt.plot(data['time'], data['security_distance_quiz'], label='Distanza di Sicurezza QuizPatenteApp', color=SECURITY_DISTANCE_QUIZ)
     plt.plot(data['time'], data['security_distance_aci'], label='Distanza di Sicurezza ACI', color=SECURITY_DISTANCE_ACI)
-    plt.title('Confronto Space Gap simulato e Distanze di Sicurezza')
+    plt.plot(data['time'], data['space_gap'], label='Spage Gap Reale', color=DATA_COLOR)
+    plt.title('Confronto Space Gap Simulato e Reale con Distanze di Sicurezza')
     plt.xlabel('Tempo [s]')
     plt.ylabel('Distanza [m]')
     plt.xticks(np.arange(0, 899, step=50))
