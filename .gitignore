@@ -1,0 +1,17 @@
+# Latex
+main.aux
+main.bcf
+main.lof
+main.log
+main.lot
+main.out
+main.run.xml
+main.synctex.gz
+main.toc
+main.bbl
+main.blg
+
+# Appunti
+appunti.txt
+
+__pycache__
