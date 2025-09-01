@@ -17,6 +17,12 @@
 \usepackage{multirow}
 \usepackage{makecell}
 \usepackage{adjustbox}
+\usepackage{longtable}
+\usepackage{tabularx} 
+\usepackage[table]{xcolor}
+\usepackage{colortbl}
+\usepackage{xcolor}
+\usepackage{placeins}
 
 \usepackage{titlesec} % Modifica il titolo del capitolo
 \titleformat{\chapter}[hang]{\huge\bfseries}{\thechapter}{1em}{}
@@ -58,9 +64,9 @@ sorting=none
     \subfile{files/body/4_risultati.tex}
     \subfile{files/body/5_conclusioni.tex}
 
+    \printbibliography
+
     \appendix
     \subfile{files/appendice.tex}
-
-    \printbibliography
 
 \end{document}
