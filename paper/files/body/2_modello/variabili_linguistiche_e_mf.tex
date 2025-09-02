@@ -21,7 +21,9 @@ dove \(0\) corrisponde a condizioni pessime (\texttt{bad}) e \(1\) a condizioni 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{membership_fun/weather_condition.png}
+    \adjustbox{center}{
+      \includegraphics[width=1.2\linewidth]{membership_fun/weather_condition.png}
+    }
     \caption{Membership Functions di Weather Condition.}
     \label{Fig:mf_weather_condition}
 \end{figure}
@@ -65,7 +67,7 @@ previsto dalla normativa ACC ISO 15622:2018 \cite{iso15622}.
 \begin{figure}[H]
     \centering
     \adjustbox{center}{
-      \includegraphics[width=\linewidth]{membership_fun/time_headway.png}
+      \includegraphics[width=1.2\linewidth]{membership_fun/time_headway.png}
     }
     \caption{Membership Functions di Time Headway}
     \label{Fig:mf_time_headway}
@@ -107,19 +109,28 @@ un coefficiente di attrito \(\mu=0.8\) e una brusca decelerazione pari a \(1\,g\
 \[
 d_{\mathrm{sicurezza}} = v \cdot t + \frac{v^2}{2\,a\,\mu}
 \]
-dove la velocità deve essere convertita in metri al secondo:
 \[
-v = \frac{30}{3.6} \approx 8.\overline{33}\,\left[\tfrac{\mathrm{m}}{\mathrm{s}}\right].
+d_{\mathrm{sicurezza}} 
+= \frac{30 \,\left[{\frac{\mathrm{km}}{\mathrm{h}}}\right]}{3.6} \times 1\,\mathrm{[s]} 
++ \frac{\left(\frac{30 \,\left[{\frac{\mathrm{km}}{\mathrm{h}}}\right]}{3.6}\right)^2}{2 \times 9.81\,\mathrm{\left[ \tfrac{m}{s^2} \right]} \times 0.8} =
 \]
-Pertanto:
-\[
-d_{\mathrm{sicurezza}} = 8.\overline{33} \times 1 + \frac{(8.\overline{33})^2}{2 \times 9.81 \times 0.8} \approx 8.\overline{33} + \frac{69.4}{15.7} \approx 8.\overline{33} + 4.42 \approx 12.75\,[\mathrm{m}].
-\]
-Viceversa, alla velocità di \(130\,\mathrm{km/h}\), la medesima distanza di \(20\,\mathrm{m}\) risulterebbe del tutto insufficiente. 
-Ricalcolando infatti la distanza di sicurezza nelle stesse condizioni si ottiene:
 
 \[
-d_{\mathrm{sicurezza}} \approx 119.1\,[\mathrm{m}]
+= 8.\overline{33}\,\mathrm{[m]} 
++ \frac{(8.\overline{33}\,\mathrm{\left[\tfrac{m}{s}\right]})^2}{15.7\,\mathrm{\left[\tfrac{m}{s^2}\right]}}
+= 8.\overline{33}\,\mathrm{m} + \frac{69.4\,\left[{\frac{\mathrm{m^2}}{\mathrm{s^2}}}\right]}{15.7\,\left[{\frac{\mathrm{m}}{\mathrm{s^2}}}\right]} =
+\]
+
+\[
+= 8.\overline{33}\,\mathrm{[m]} + 4.42\,\mathrm{[m]} 
+\approx 12.75\,\mathrm{m}.
+\]
+
+\noindent Viceversa, alla velocità di \(130\,\mathrm{km/h}\), la medesima distanza di \(20\,\mathrm{m}\) risulterebbe del tutto insufficiente. 
+Ricalcolando infatti la distanza di sicurezza da mantenere nelle stesse condizioni si ottiene:
+
+\[
+d_{\mathrm{sicurezza}} \approx 119.1\,\mathrm{m}
 \]
 
 \noindent La variabile \texttt{time\_headway} consente di modellare direttamente il tempo che separa i due veicoli 
@@ -144,7 +155,8 @@ Nella tabella è inoltre riportata la differenza percentuale tra le due misure.
 \\\\
 \noindent Si sottolinea che, per il calcolo di entrambe le distanze, sono stati utilizzati i valori $a = 9.81~\mathrm{m/s^2}$ 
 e $\mu = 0.8$ come in precedenza, modificando però il tempo di reazione da $1~\mathrm{s}$ a $2~\mathrm{s}$, 
-in quanto si presuppone che, in autostrada con ACC attivo, il conducente presti un livello di attenzione ridotto.
+in quanto si presuppone che, in autostrada con ACC attivo, il conducente presti un livello di attenzione ridotto e impieghi
+più tempo a reagire.
 
 \begin{table}[h!]
 \centering
@@ -200,7 +212,7 @@ Essa è definita come:
 i termini linguistici sono definiti dal punto di vista dell'\emph{ego}. Ad esempio, se il \emph{leader} viaggia a $30\,\frac{\mathrm{m}}{\mathrm{s}}$ e 
 l'\emph{ego} a $20\,\frac{\mathrm{m}}{\mathrm{s}}$, si ha:
 \[
-\text{relative\_velocity} = 10\,[\frac{\mathrm{m}}{\mathrm{s}}],
+\text{relative\_velocity} = 10\,\frac{\mathrm{m}}{\mathrm{s}},
 \]
 ossia il \emph{leader} è $36\,\frac{\mathrm{km}}{\mathrm{h}}$ più veloce dell'\emph{ego}. In questo caso, il fenomeno rientra nella categoria 
 \texttt{moving\_away\_fast}, poiché l'\emph{ego} si sta allontanando rapidamente dal leader.
@@ -213,7 +225,7 @@ ossia il \emph{leader} è $36\,\frac{\mathrm{km}}{\mathrm{h}}$ più veloce dell'
       \item \texttt{moving\_away}: triangolare definita dai punti [0.5, 3.0, 7.0].
       \item \texttt{moving\_away\_fast}: trapezoidale definita dai punti [5.0, 10.0, 23.0, 23.0].
     \end{itemize}
-  \item \textbf{Universo}: \([-23.0,+23.0]\) $\frac{m}{s}$
+  \item \textbf{Universo}: \([-23.0,+23.0]\) $\frac{\mathrm{m}}{\mathrm{s}}$
 \end{itemize}
 Gli estremi dell'universo sono stati determinati calcolando, in valore assoluto, la massima differenza di velocità tra il veicolo
 \emph{leader} e il veicolo \emph{ego}, come mostrato di seguito:
@@ -227,7 +239,7 @@ Gli estremi dell'universo sono stati determinati calcolando, in valore assoluto,
 \begin{figure}[H]
     \centering
     \adjustbox{center}{
-      \includegraphics[width=1.1\linewidth]{membership_fun/relative_velocity.png}
+      \includegraphics[width=1.2\linewidth]{membership_fun/relative_velocity.png}
     }
     \caption{Membership Functions di Relative Velocity}
     \label{Fig:mf_relative_velocity}
@@ -269,7 +281,7 @@ In particolare:
 \begin{figure}[H]
     \centering
     \adjustbox{center}{
-      \includegraphics[width=1.2\textwidth]{membership_fun/acceleration.png}
+      \includegraphics[width=1.1\textwidth]{membership_fun/acceleration.png}
     }  
     \caption{Membership Functions di Acceleration}
     \label{Fig:mf_acceleration}

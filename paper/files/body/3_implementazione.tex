@@ -21,12 +21,12 @@ a_{f}(t) = \alpha \cdot a(t) + (1 - \alpha) \cdot a_{f}(t-1),
 Una visualizzazione interattiva del funzionamento di tale filtro è disponibile 
 su \href{https://www.geogebra.org/m/tb88mqrm}{GeoGebra} \cite{geogebraEWMA}.
 \\\\
-\noindent Inoltre, per eliminare oscillazioni di bassa entità, tutte le accelerazioni con valore assoluto inferiore a $0.12 \, \mathrm{m/s^2}$ 
+\noindent Inoltre, per eliminare oscillazioni di bassa entità, tutte le accelerazioni con valore assoluto inferiore a $0.12 \, \frac{\mathrm{m}}{\mathrm{s^2}}$ 
 sono state poste pari a zero.  
 Questa soglia consente di evitare micro-variazioni potenzialmente fastidiose. Si noti che un valore troppo elevato potrebbe
 generare accelerazioni più brusche nel momento in cui il sistema reagisce a una variazione.
 \\\\
-\noindent Sia la soglia di $0.12 \, \mathrm{m/s^2}$ sia il coefficiente $\alpha = 0.1$ sono stati scelti empiricamente tramite test, 
+\noindent Sia la soglia di $0.12 \,\frac{\mathrm{m}}{\mathrm{s^2}}$ sia il coefficiente $\alpha = 0.1$ sono stati scelti empiricamente tramite test, 
 bilanciando la reattività del sistema con la stabilità e il comfort del conducente.
 
 \section{Dataset di riferimento e calcoli preliminari}
@@ -34,9 +34,9 @@ Per valutare la bontà del modello, è stato utilizzato un dataset pubblico del 
 verrà denominato \texttt{dataset\_reale}, contenente dati raccolti da un veicolo dotato di ACC su un tratto dell'Interstate-65 
 (un'autostrada statunitense) per una durata di 15 minuti.  
 I dati sono stati acquisiti direttamente tramite l'unità radar di serie del veicolo e il CAN bus.  
-I confronti tra dati reali e simulati sono riportati nel Capitolo \ref{cha:risultati}.
+I confronti tra i dati osservati e quelli simulati sono riportati nel Capitolo \ref{cha:risultati}.
 \\\\
-\noindent Il dataset include le seguenti colonne:
+\noindent Il \texttt{dataset\_reale} include le seguenti colonne:
 \begin{itemize}
     \item \textbf{timestamps} [s]: istanti di campionamento (frequenza di $10\,\mathrm{Hz}$)
     \item \textbf{ego\_velocity} [m/s]: velocità del veicolo \emph{ego}
@@ -45,16 +45,24 @@ I confronti tra dati reali e simulati sono riportati nel Capitolo \ref{cha:risul
     \item \textbf{ACC command acceleration} [m/s\textsuperscript{2}]: accelerazione richiesta dal sistema ACC per il veicolo \emph{ego}
 \end{itemize}
 
-\noindent Per consentire un confronto tra modello e dati reali, nella simulazione sono state calcolate le stesse grandezze riportate di
-seguito, aggiungendo le accelerazioni \texttt{ego\_acceleration} e \texttt{leader\_acceleration}.
+\noindent È stato creato un dataset, che d'ora in avanti verrà denominato \texttt{dataset\_simulazione}, 
+contenente i dati generati dalla simulazione.  
+Esso è strutturato con le stesse colonne del \texttt{dataset\_reale}, a cui sono state aggiunte due ulteriori variabili, 
+\texttt{ego\_acceleration} e \texttt{leader\_acceleration}, 
+in modo da consentire un confronto diretto tra i risultati del modello e i dati osservati.  
+Le colonne che compongono il \texttt{dataset\_simulazione} sono riportate di seguito.
+
+
 
 \subsection{Timestamps}
 La simulazione utilizza la stessa frequenza del \texttt{dataset\_reale}, 
 ovvero $10\,\mathrm{Hz}$ (0.1 secondi per passo), per un totale di 9000 misurazioni (15 minuti).
 
 \subsection{Ego Acceleration}
-L'accelerazione del veicolo \emph{ego} viene calcolata come output del modello fuzzy e filtrata attraverso il filtro EWMA.  
-Al tempo $t=0$ l'accelerazione iniziale è impostata a zero.
+L'accelerazione del veicolo \emph{ego} viene calcolata ad ogni passo come output del modello fuzzy e filtrata attraverso il filtro EWMA.  
+Al tempo $t=0$ l'accelerazione iniziale è impostata a zero e, come detto in precedenza, qualsiasi valore di accelerazione con modulo
+inferiore a $0.12 \,\frac{\mathrm{m}}{\mathrm{s^2}}$ viene posto uguale a zero.
+
 
 \subsection{Leader Acceleration}
 L'accelerazione del veicolo \emph{leader} viene calcolata a partire dal \texttt{dataset\_reale} come 
@@ -64,7 +72,7 @@ a_t(\mathrm{leader}) = \frac{v_t(\mathrm{leader}) - v_{t-1}(\mathrm{leader})}{\D
 \]
 
 \subsection{Ego Velocity}
-La velocità del veicolo \emph{ego} viene aggiornata ad ogni istante della simulazione.
+La velocità del veicolo \emph{ego} viene aggiornata ad ogni passo della simulazione.
 Come valore iniziale è stato preso il primo campione presente nel \texttt{dataset\_reale}.  
 \\\\
 \noindent Ad ogni step temporale $\Delta t = 0.1\,\mathrm{s}$, la nuova velocità è calcolata secondo la legge del moto uniformemente 
@@ -75,8 +83,8 @@ v_t(\mathrm{ego}) = v_{t-1}(\mathrm{ego}) + a_t(\mathrm{ego}) \cdot \Delta t
 dove $a_t(\mathrm{ego})$ è l'accelerazione filtrata in output dal modello del veicolo \emph{ego} al tempo $t$.
 
 \paragraph{Annotazione} Come verrà visto successivamente \textcolor{red}{AGGIUNGI RIFERIMENTO}, l'accelerazione impartita dal modello 
-non corrisponderà all'accelerazione effettiva del veicolo nella realtà. Tuttavia, non essendo possibile testare il modello su un veicolo 
-reale, questa semplificazione è considerata accettabile per valutare la performance del sistema.
+non corrisponderà all'accelerazione effettiva del veicolo nella realtà. Tuttavia, non essendo possibile testare il modello proposto 
+su un veicolo reale, questa semplificazione è considerata accettabile per valutare la performance del sistema.
 
 \subsection{Leader Velocity}
 La velocità del veicolo \emph{leader} viene copiata direttamente dalla colonna corrispondente del \texttt{dataset\_reale}.
