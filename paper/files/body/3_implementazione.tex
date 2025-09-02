@@ -68,9 +68,17 @@ La simulazione utilizza la stessa frequenza del \texttt{dataset\_reale},
 ovvero $10\,\mathrm{Hz}$ (0.1 secondi per passo), per un totale di 9000 misurazioni (15 minuti).
 
 \subsection{Ego Acceleration}
+\label{subsec:ego_acceleration}
 L'accelerazione del veicolo \emph{ego} viene calcolata ad ogni passo come output del modello fuzzy e filtrata attraverso il filtro EWMA.  
 Al tempo $t=0$ l'accelerazione iniziale è impostata a zero e, come detto in precedenza, qualsiasi valore di accelerazione con modulo
 inferiore a $0.12 \,\frac{\mathrm{m}}{\mathrm{s^2}}$ viene posto uguale a zero.
+
+\paragraph{Annotazione} Come verrà mostrato in Figura \ref{fig:acceleration_effettiva_impartita}, 
+l'accelerazione impartita dal modello non coincide con l'accelerazione effettiva che si avrebbe in un veicolo reale.  
+Nel presente lavoro si è tuttavia adottata la semplificazione di assumere le due grandezze come coincidenti, 
+in quanto non è possibile testare il modello su un veicolo reale.  
+Va notato che questa approssimazione comporta inevitabilmente un calcolo della \emph{ego\_velocity} non perfettamente corrispondente 
+alla realtà. Nonostante ciò, l'ipotesi è ritenuta accettabile ai fini della valutazione delle performance complessive del sistema.
 
 \subsection{Leader Acceleration}
 L'accelerazione del veicolo \emph{leader} viene calcolata a partire dal \texttt{dataset\_reale} come 
@@ -89,12 +97,6 @@ accelerato:
 v_t(\mathrm{ego}) = v_{t-1}(\mathrm{ego}) + a_t(\mathrm{ego}) \cdot \Delta t
 \]
 dove $a_t(\mathrm{ego})$ è l'accelerazione filtrata in output dal modello del veicolo \emph{ego} al tempo $t$.
-
-\paragraph{Annotazione} Come verrà mostrato in Figura \ref{fig:acceleration_effettiva_impartita}, 
-l'accelerazione impartita dal modello non coincide con l'accelerazione effettiva che si avrebbe in un veicolo reale.  
-Nel presente lavoro si è tuttavia adottata la semplificazione di assumere le due grandezze come coincidenti, 
-in quanto non è possibile testare il modello su un veicolo reale.  
-Questa ipotesi, pur rappresentando un'approssimazione, è ritenuta accettabile ai fini della valutazione delle performance del sistema.
 
 \subsection{Leader Velocity}
 La velocità del veicolo \emph{leader} viene copiata direttamente dalla colonna corrispondente del \texttt{dataset\_reale}.
@@ -117,7 +119,7 @@ dove le distanze percorse dai veicoli durante lo step $\Delta t$ sono:
 \]
 
 \vspace{10mm}
-\noindent Per ciascun timestamp vengono inoltre ricalcolati i parametri necessari al modello fuzzy:  
+\noindent Per ciascun timestamp della simulazione vengono inoltre ricalcolati i parametri necessari al modello fuzzy:  
 \[
 \mathrm{time\_headway}_t = \frac{\mathrm{space\_gap}_t}{v_t(\mathrm{ego})}
 \]
@@ -126,7 +128,7 @@ dove le distanze percorse dai veicoli durante lo step $\Delta t$ sono:
 \mathrm{relative\_velocity}_t = v_t(\mathrm{leader}) - v_t(\mathrm{ego})
 \]
 
-\noindent Questi valori vengono utilizzati come input dal modello per calcolare la nuova accelerazione in output.
+\noindent Questi valori vengono utilizzati come input dal modello per calcolare la nuova accelerazione in output ad ogni passo.
 
 
 
