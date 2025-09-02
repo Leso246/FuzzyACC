@@ -29,10 +29,10 @@ generare accelerazioni più brusche nel momento in cui il sistema reagisce a una
 \noindent Sia la soglia di $0.12 \,\frac{\mathrm{m}}{\mathrm{s^2}}$ sia il coefficiente $\alpha = 0.1$ sono stati scelti empiricamente tramite test, 
 bilanciando la reattività del sistema con la stabilità e il comfort del conducente.
 
-\section{Dataset di riferimento e calcoli preliminari}
+\section{Dataset di riferimento}
 Per valutare la bontà del modello, è stato utilizzato un dataset pubblico del 2019 \cite{wang2019acc_dataset}, che d'ora in avanti
 verrà denominato \texttt{dataset\_reale}, contenente dati raccolti da un veicolo dotato di ACC su un tratto dell'Interstate-65 
-(un'autostrada statunitense) per una durata di 15 minuti.  
+(un'autostrada statunitense) per un periodo di 15 minuti.  
 I dati sono stati acquisiti direttamente tramite l'unità radar di serie del veicolo e il CAN bus.  
 I confronti tra i dati osservati e quelli simulati sono riportati nel Capitolo \ref{cha:risultati}.
 \\\\
@@ -45,14 +45,23 @@ I confronti tra i dati osservati e quelli simulati sono riportati nel Capitolo \
     \item \textbf{ACC command acceleration} [m/s\textsuperscript{2}]: accelerazione richiesta dal sistema ACC per il veicolo \emph{ego}
 \end{itemize}
 
-\noindent È stato creato un dataset, che d'ora in avanti verrà denominato \texttt{dataset\_simulazione}, 
-contenente i dati generati dalla simulazione.  
-Esso è strutturato con le stesse colonne del \texttt{dataset\_reale}, a cui sono state aggiunte due ulteriori variabili, 
-\texttt{ego\_acceleration} e \texttt{leader\_acceleration}, 
-in modo da consentire un confronto diretto tra i risultati del modello e i dati osservati.  
-Le colonne che compongono il \texttt{dataset\_simulazione} sono riportate di seguito.
+\noindent Dall'analisi del \texttt{dataset\_reale} si osserva che la velocità del veicolo \emph{leader} 
+raggiunge un valore minimo di $25.667 \, \frac{\mathrm{m}}{\mathrm{s}}$ 
+(corrispondenti a $92.401 \, \frac{\mathrm{km}}{\mathrm{h}}$) e un valore massimo di 
+$34.799 \, \frac{\mathrm{m}}{\mathrm{s}}$ (corrispondenti a $125.276 \, \frac{\mathrm{km}}{\mathrm{h}}$), 
+mentre lo \texttt{space\_gap} iniziale risulta pari a $72.653 \, \mathrm{m}$.  
+Tali misure rientrano pienamente negli intervalli contemplati dal modello proposto.
 
-
+\section{Dataset della simulazione}
+\noindent È stato successivamente definito un secondo dataset, denominato \texttt{dataset\_simulazione}, 
+contenente i dati generati dalla simulazione del modello.  
+La simulazione è stata inizializzata utilizzando come condizioni di partenza i valori osservati nel \texttt{dataset\_reale}, 
+in modo da garantire un confronto diretto e coerente tra dati reali e simulati.  
+In particolare, ad ogni istante temporale la velocità del veicolo \emph{leader} è assunta direttamente dal \texttt{dataset\_reale}, 
+così da mantenere invariato il comportamento del veicolo di riferimento.  
+La struttura del \texttt{dataset\_simulazione} ricalca quella del \texttt{dataset\_reale}, 
+con l'aggiunta di due variabili supplementari: \texttt{ego\_acceleration} e \texttt{leader\_acceleration}.  
+Le colonne che lo compongono sono descritte di seguito.
 
 \subsection{Timestamps}
 La simulazione utilizza la stessa frequenza del \texttt{dataset\_reale}, 
@@ -63,7 +72,6 @@ L'accelerazione del veicolo \emph{ego} viene calcolata ad ogni passo come output
 Al tempo $t=0$ l'accelerazione iniziale è impostata a zero e, come detto in precedenza, qualsiasi valore di accelerazione con modulo
 inferiore a $0.12 \,\frac{\mathrm{m}}{\mathrm{s^2}}$ viene posto uguale a zero.
 
-
 \subsection{Leader Acceleration}
 L'accelerazione del veicolo \emph{leader} viene calcolata a partire dal \texttt{dataset\_reale} come 
 variazione di velocità tra due campioni consecutivi:
@@ -73,7 +81,7 @@ a_t(\mathrm{leader}) = \frac{v_t(\mathrm{leader}) - v_{t-1}(\mathrm{leader})}{\D
 
 \subsection{Ego Velocity}
 La velocità del veicolo \emph{ego} viene aggiornata ad ogni passo della simulazione.
-Come valore iniziale è stato preso il primo campione presente nel \texttt{dataset\_reale}.  
+Come valore iniziale è stato preso il primo campione presente nel \texttt{dataset\_reale} ($32.493 \, \frac{\mathrm{m}}{\mathrm{s}}$).  
 \\\\
 \noindent Ad ogni step temporale $\Delta t = 0.1\,\mathrm{s}$, la nuova velocità è calcolata secondo la legge del moto uniformemente 
 accelerato:
@@ -82,15 +90,19 @@ v_t(\mathrm{ego}) = v_{t-1}(\mathrm{ego}) + a_t(\mathrm{ego}) \cdot \Delta t
 \]
 dove $a_t(\mathrm{ego})$ è l'accelerazione filtrata in output dal modello del veicolo \emph{ego} al tempo $t$.
 
-\paragraph{Annotazione} Come verrà visto successivamente \textcolor{red}{AGGIUNGI RIFERIMENTO}, l'accelerazione impartita dal modello 
-non corrisponderà all'accelerazione effettiva del veicolo nella realtà. Tuttavia, non essendo possibile testare il modello proposto 
-su un veicolo reale, questa semplificazione è considerata accettabile per valutare la performance del sistema.
+\paragraph{Annotazione} Come verrà mostrato in Figura \ref{fig:acceleration_effettiva_impartita}, 
+l'accelerazione impartita dal modello non coincide con l'accelerazione effettiva che si avrebbe in un veicolo reale.  
+Nel presente lavoro si è tuttavia adottata la semplificazione di assumere le due grandezze come coincidenti, 
+in quanto non è possibile testare il modello su un veicolo reale.  
+Questa ipotesi, pur rappresentando un'approssimazione, è ritenuta accettabile ai fini della valutazione delle performance del sistema.
 
 \subsection{Leader Velocity}
 La velocità del veicolo \emph{leader} viene copiata direttamente dalla colonna corrispondente del \texttt{dataset\_reale}.
+Il valore iniziale risulta pari a $31.043 \, \frac{\mathrm{m}}{\mathrm{s}}$.
 
 \subsection{Space Gap}
-Il valore iniziale dello \texttt{space\_gap} è preso dal primo campione del \texttt{dataset\_reale}.
+Lo \texttt{space\_gap} iniziale è stato impostato utilizzando il primo campione disponibile nel \texttt{dataset\_reale}, 
+pari a $72.653 \, \mathrm{m}$.
 \\\\
 \noindent Ad ogni passo temporale, lo spazio tra i veicoli viene aggiornato come:
 \[
