@@ -1,6 +1,7 @@
 import pandas as pd
+from modello_python.config import SIM_CSV_PATH
 
-df = pd.read_csv("./modello_python/assets/data_sim/sim.csv")
+df = pd.read_csv(SIM_CSV_PATH)
 
 print("Min space gap:", df["space_gap"].min())
 print("Max space gap:", df["space_gap"].max())

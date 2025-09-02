@@ -8,8 +8,8 @@ MIN_ACCELERATION = 0.12
 
 # File paths
 RULES_CSV_PATH = "./modello_python/rules/rules.csv"
-DATA_CSV_PATH = "./modello_python/assets/dataset/data.csv"
-SIM_CSV_PATH = "./modello_python/assets/data_sim/sim.csv"
+DATA_CSV_PATH = "./modello_python/assets/dataset/dataset_reale.csv"
+SIM_CSV_PATH = "./modello_python/assets/dataset_simulation/dataset_simulazione.csv"
 
 MF_PLOTS_PATH = "./modello_python/assets/plots/membership_fun"
 SIM_LEAD_PLOTS_PATH = "./modello_python/assets/plots/simulation/leader_comparison"

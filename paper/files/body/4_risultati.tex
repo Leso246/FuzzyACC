@@ -24,6 +24,10 @@ contribuendo a una guida più stabile e confortevole, riducendo l'impatto di var
 altrettanto intensa. Il veicolo \emph{ego} reagisce a questo evento, ma in modo significativamente più moderato, con picchi di accelerazione 
 e decelerazione di entità decisamente inferiore.
 \\\\
+\noindent Per validare ulteriormente il risultato ottenuto, è stato applicato lo stesso filtro passa basso all'accelerazione del veicolo 
+\emph{leader} e successivamente è stato calcolato il coefficiente di correlazione di \textbf{Pearson} tra le due curve. Il test ha restituito un 
+valore di 0.792, confermando una buona similitudine tra il trend filtrato del leader e l'accelerazione simulata dell'ego.
+\\\\
 \noindent In conclusione, il grafico mostra che, pur non replicando ogni singola fluttuazione del veicolo \emph{leader}, 
 il veicolo \emph{ego} segue fedelmente il trend generale. Il sistema di controllo si dimostra efficace nel garantire 
 una dinamica di guida sicura e prevedibile, attenuando le variazioni più estreme dell'accelerazione e favorendo 
@@ -49,7 +53,11 @@ Queste leggere variazioni sono la conseguenza della risposta smorzata dell'accel
 limita reazioni brusche. Nonostante tali attenuazioni, il veicolo \emph{ego} mantiene una velocità che rispecchia fedelmente 
 il comportamento del veicolo \emph{leader}.
 \\\\
-\noindent In conclusione, la simulazione conferma cl’elevata efficacia del sistema di controllo della velocità. Il veicolo \emph{ego}
+\noindent Anche in questo caso, per validare ulteriormente il risultato ottenuto, è stato calcolato il coefficiente di correlazione 
+di \textbf{Pearson} tra le due curve. Il test ha restituito un valore di 0.923, confermando l'elevata similitudine tra la 
+velocità simulata dell'\emph{ego} e quella del \emph{leader}.
+\\\\
+\noindent In conclusione, la simulazione conferma l'elevata efficacia del sistema di controllo della velocità. Il veicolo \emph{ego}
 è in grado di mantenere una velocità allineata a quella del \emph{leader}, garantendo una guida fluida e sicura, 
 e dimostrando che le attenuazioni nella risposta dell'accelerazione non compromettono la capacità di seguire il profilo di velocità 
 desiderato.

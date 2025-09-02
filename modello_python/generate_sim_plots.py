@@ -65,6 +65,32 @@ def generate_sim_plots():
     plt.grid(True)
     plt.savefig(SIM_LEAD_PLOTS_PATH + "/space_gap")
 
+    # Grafico space_gap VS space_gap_data
+    plt.figure(figsize=(16, 8))
+    plt.plot(result['time'], result['space_gap'], label='Space Gap Simulato', color=EGO_COLOR)
+    plt.plot(data['time'], data['space_gap'], label='Spage Gap Reale', color=DATA_COLOR)
+    plt.title('Confronto Space Gap simulato e reale')
+    plt.xlabel('Tempo [s]')
+    plt.ylabel('Distanza [m]')
+    plt.xticks(np.arange(0, 899, step=50))
+    plt.legend()
+    plt.grid(True)
+    plt.savefig(SIM_LEAD_PLOTS_PATH + "/space_gap")
+
+    # Grafico space_gap VS security_distance
+    plt.figure(figsize=(16, 8))
+    plt.plot(result['time'], result['space_gap'], label='Space Gap Simulato', color=EGO_COLOR)
+    plt.plot(data['time'], data['security_distance_quiz'], label='Distanza di Sicurezza QuizPatenteApp', color=SECURITY_DISTANCE_QUIZ)
+    plt.plot(data['time'], data['security_distance_aci'], label='Distanza di Sicurezza ACI', color=SECURITY_DISTANCE_ACI)
+    plt.plot(data['time'], data['space_gap'], label='Spage Gap Reale', color=DATA_COLOR)
+    plt.title('Confronto Space Gap Simulato e Reale con Distanze di Sicurezza')
+    plt.xlabel('Tempo [s]')
+    plt.ylabel('Distanza [m]')
+    plt.xticks(np.arange(0, 899, step=50))
+    plt.legend()
+    plt.grid(True)
+    plt.savefig(SIM_LEAD_PLOTS_PATH + "/security_distance")
+
     # Grafico ego_velocity VS ego_velocity_data
     plt.figure(figsize=(16, 8))
     plt.plot(result['time'], result['ego_velocity'], label='Ego Velocity Simulata', color=EGO_COLOR)
@@ -101,7 +127,7 @@ def generate_sim_plots():
     plt.grid(True)
     plt.savefig(SIM_REAL_PLOTS_PATH + "/acceleration_effettiva")
 
-        # Grafico ego_acceleration_data_impartita VS ego_acceleration_data_effettiva
+    # Grafico ego_acceleration_data_impartita VS ego_acceleration_data_effettiva
     plt.figure(figsize=(16, 8))
     plt.plot(data['time'], data['actual_ego_acceleration'], label='Ego Acceleration Reale Effettiva', color="#800080")
     plt.plot(data['time'], data['ego_acceleration'], label='Ego Acceleration Reale Impartita', color=DATA_COLOR)
@@ -112,29 +138,3 @@ def generate_sim_plots():
     plt.legend()
     plt.grid(True)
     plt.savefig(SIM_REAL_PLOTS_PATH + "/acceleration_effettiva_impartita")
-
-    # Grafico space_gap VS space_gap_data
-    plt.figure(figsize=(16, 8))
-    plt.plot(result['time'], result['space_gap'], label='Space Gap Simulato', color=EGO_COLOR)
-    plt.plot(data['time'], data['space_gap'], label='Spage Gap Reale', color=DATA_COLOR)
-    plt.title('Confronto Space Gap simulato e reale')
-    plt.xlabel('Tempo [s]')
-    plt.ylabel('Distanza [m]')
-    plt.xticks(np.arange(0, 899, step=50))
-    plt.legend()
-    plt.grid(True)
-    plt.savefig(SIM_REAL_PLOTS_PATH + "/space_gap")
-
-    # Grafico space_gap VS security_distance
-    plt.figure(figsize=(16, 8))
-    plt.plot(result['time'], result['space_gap'], label='Space Gap Simulato', color=EGO_COLOR)
-    plt.plot(data['time'], data['security_distance_quiz'], label='Distanza di Sicurezza QuizPatenteApp', color=SECURITY_DISTANCE_QUIZ)
-    plt.plot(data['time'], data['security_distance_aci'], label='Distanza di Sicurezza ACI', color=SECURITY_DISTANCE_ACI)
-    plt.plot(data['time'], data['space_gap'], label='Spage Gap Reale', color=DATA_COLOR)
-    plt.title('Confronto Space Gap Simulato e Reale con Distanze di Sicurezza')
-    plt.xlabel('Tempo [s]')
-    plt.ylabel('Distanza [m]')
-    plt.xticks(np.arange(0, 899, step=50))
-    plt.legend()
-    plt.grid(True)
-    plt.savefig(SIM_REAL_PLOTS_PATH + "/security_distance")

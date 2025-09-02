@@ -1,6 +1,7 @@
 import pandas as pd
+from modello_python.config import DATA_CSV_PATH
 
-df = pd.read_csv("./modello_python/assets/dataset/data.csv")
+df = pd.read_csv(DATA_CSV_PATH)
 
 print("Initial Ego Velocity: ", df['ego_velocity'][0])
 print("Initial Leader Velocity: ", df['leader_velocity'][0])

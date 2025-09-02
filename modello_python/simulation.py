@@ -46,7 +46,6 @@ def run_simulation(system):
         sim.input['relative_velocity'] = relative_velocity
         sim.input['time_headway'] = time_headway
 
-
         sim.compute()
 
         # Calcola la differenza di secondi tra uno step e l'altro
