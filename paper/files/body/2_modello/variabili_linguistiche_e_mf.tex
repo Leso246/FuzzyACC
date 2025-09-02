@@ -123,14 +123,14 @@ d_{\mathrm{sicurezza}}
 
 \[
 = 8.\overline{33}\,\mathrm{[m]} + 4.42\,\mathrm{[m]} 
-\approx 12.75\,\mathrm{m}.
+\approx 12.75\,\mathrm{[m]}.
 \]
 
 \noindent Viceversa, alla velocità di \(130\,\mathrm{km/h}\), la medesima distanza di \(20\,\mathrm{m}\) risulterebbe del tutto insufficiente. 
 Ricalcolando infatti la distanza di sicurezza da mantenere nelle stesse condizioni si ottiene:
 
 \[
-d_{\mathrm{sicurezza}} \approx 119.1\,\mathrm{m}
+d_{\mathrm{sicurezza}} \approx 119.1\,\mathrm{[m]}
 \]
 
 \noindent La variabile \texttt{time\_headway} consente di modellare direttamente il tempo che separa i due veicoli 
@@ -154,7 +154,7 @@ per i diversi valori di \texttt{ego\_velocity} e \texttt{time\_headway}.
 Nella tabella è inoltre riportata la differenza percentuale tra le due misure. 
 \\\\
 \noindent Si sottolinea che, per il calcolo di entrambe le distanze, sono stati utilizzati i valori $a = 9.81~\mathrm{m/s^2}$ 
-e $\mu = 0.8$ come in precedenza, modificando però il tempo di reazione da $1~\mathrm{s}$ a $2~\mathrm{s}$, 
+e $\mu = 0.8$ come in precedenza, modificando però il tempo di reazione da $1~\mathrm{secondo}$ a $2~\mathrm{secondi}$, 
 in quanto si presuppone che, in autostrada con ACC attivo, il conducente presti un livello di attenzione ridotto e impieghi
 più tempo a reagire.
 
@@ -206,13 +206,13 @@ più tempo a reagire.
 La variabile \texttt{relative\_velocity} rappresenta la velocità relativa del veicolo \emph{leader} rispetto al veicolo \emph{ego}.
 Essa è definita come:
 \[
-\text{relative\_velocity} = \text{leader\_velocity} - \text{ego\_velocity}.
+\text{relative\_velocity}\,\left[\frac{\mathrm{m}}{\mathrm{s}}\right] = \text{leader\_velocity}\,\left[\frac{\mathrm{m}}{\mathrm{s}}\right] - \text{ego\_velocity}\,\left[\frac{\mathrm{m}}{\mathrm{s}}\right].
 \]
 \paragraph{Annotazione} Si noti che, sebbene la variabile rappresenti la velocità relativa del \emph{leader} rispetto all'\emph{ego}, 
 i termini linguistici sono definiti dal punto di vista dell'\emph{ego}. Ad esempio, se il \emph{leader} viaggia a $30\,\frac{\mathrm{m}}{\mathrm{s}}$ e 
 l'\emph{ego} a $20\,\frac{\mathrm{m}}{\mathrm{s}}$, si ha:
 \[
-\text{relative\_velocity} = 10\,\frac{\mathrm{m}}{\mathrm{s}},
+\text{relative\_velocity} = 10\,\left[\frac{\mathrm{m}}{\mathrm{s}}\right],
 \]
 ossia il \emph{leader} è $36\,\frac{\mathrm{km}}{\mathrm{h}}$ più veloce dell'\emph{ego}. In questo caso, il fenomeno rientra nella categoria 
 \texttt{moving\_away\_fast}, poiché l'\emph{ego} si sta allontanando rapidamente dal leader.
@@ -230,9 +230,9 @@ ossia il \emph{leader} è $36\,\frac{\mathrm{km}}{\mathrm{h}}$ più veloce dell'
 Gli estremi dell'universo sono stati determinati calcolando, in valore assoluto, la massima differenza di velocità tra il veicolo
 \emph{leader} e il veicolo \emph{ego}, come mostrato di seguito:
 \[
-  \max(\text{relative\_velocity}) \,[\mathrm{m}/\mathrm{s}]
-  = \frac{150\,[\mathrm{km}/\mathrm{h}] - 70\,[\mathrm{km}/\mathrm{h}]}{3.6}
-  = 22.\overline{2}\,[\mathrm{m}/\mathrm{s}]
+  \max(\text{relative\_velocity}) \,\left[\frac{\mathrm{m}}{\mathrm{s}}\right]
+  = \frac{150\,\left[\frac{\mathrm{km}}{\mathrm{h}}\right] - 70\,\left[\frac{\mathrm{km}}{\mathrm{h}}\right]}{3.6}
+  = 22.\overline{2}\,\left[\frac{\mathrm{m}}{\mathrm{s}}\right]
 \]
 
 \noindent In Figura~\ref{Fig:mf_relative_velocity} sono riportate le Membership Functions associate alla variabile \texttt{relative\_velocity}.
