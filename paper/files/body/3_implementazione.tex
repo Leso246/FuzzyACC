@@ -1,4 +1,5 @@
 \chapter{Implementazione}
+\label{cha:implementazione}
 
 Il modello è stato implementato in \texttt{Python} utilizzando la libreria \texttt{scikit-fuzzy}.  
 L'intero codice sorgente è disponibile su \href{https://github.com/Leso246/FuzzyACC}{GitHub}.
@@ -60,8 +61,14 @@ in modo da garantire un confronto diretto e coerente tra dati reali e simulati.
 In particolare, ad ogni istante temporale la velocità del veicolo \emph{leader} è assunta direttamente dal \texttt{dataset\_reale}, 
 così da mantenere invariato il comportamento del veicolo di riferimento.  
 La struttura del \texttt{dataset\_simulazione} ricalca quella del \texttt{dataset\_reale}, 
-con l'aggiunta di due variabili supplementari: \texttt{ego\_acceleration} e \texttt{leader\_acceleration}.  
-Le colonne che lo compongono sono descritte di seguito.
+con l'aggiunta di due variabili supplementari: \texttt{ego\_acceleration} e \texttt{leader\_acceleration}. 
+\\\\
+\noindent Per tutta la simulazione è stata impostata la variabile \texttt{weather\_condition} pari a 1, 
+corrispondente a condizioni perfette (good weather).   
+Si sottolinea che non si dispone della conoscenza delle condizioni meteorologiche durante il 
+campionamento del \texttt{dataset\_reale}.
+\\\\
+Le colonne che compongono il \texttt{dataset\_simulazione} sono descritte di seguito.
 
 \subsection{Timestamps}
 La simulazione utilizza la stessa frequenza del \texttt{dataset\_reale}, 
@@ -73,12 +80,8 @@ L'accelerazione del veicolo \emph{ego} viene calcolata ad ogni passo come output
 Al tempo $t=0$ l'accelerazione iniziale è impostata a zero e, come detto in precedenza, qualsiasi valore di accelerazione con modulo
 inferiore a $0.12 \,\frac{\mathrm{m}}{\mathrm{s^2}}$ viene posto uguale a zero.
 
-\paragraph{Annotazione} Come verrà mostrato in Figura \ref{fig:acceleration_effettiva_impartita}, 
+\paragraph{Annotazione} Come verrà mostrato nella Sezione \ref{sec:premessa}, 
 l'accelerazione impartita dal modello non coincide con l'accelerazione effettiva che si avrebbe in un veicolo reale.  
-Nel presente lavoro si è tuttavia adottata la semplificazione di assumere le due grandezze come coincidenti, 
-in quanto non è possibile testare il modello su un veicolo reale.  
-Va notato che questa approssimazione comporta inevitabilmente un calcolo della \emph{ego\_velocity} non perfettamente corrispondente 
-alla realtà. Nonostante ciò, l'ipotesi è ritenuta accettabile ai fini della valutazione delle performance complessive del sistema.
 
 \subsection{Leader Acceleration}
 L'accelerazione del veicolo \emph{leader} viene calcolata a partire dal \texttt{dataset\_reale} come 
