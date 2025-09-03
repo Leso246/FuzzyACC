@@ -1,8 +1,8 @@
 import pandas as pd
+import numpy as np
 from modello_python.config import SIM_CSV_PATH, DATA_CSV_PATH
-from scipy.stats import pearsonr
 
-# Confronta gli space gap
+# Confronta gli space gap e le distanze di sicurezza
 
 dataset_simulazione_df = pd.read_csv(SIM_CSV_PATH)
 dataset_reale_df = pd.read_csv(DATA_CSV_PATH)
@@ -22,4 +22,19 @@ for i in range(1, len(data["time"])):
     data.loc[i, "security_distance_aci"] = pow(((data["ego_velocity_simulata"][i] * 3.6) / 10), 2)
 
 diff_simulato_reale = data["space_gap_simulato"] - data["space_gap_reale"]
+diff_simulato_reale_mean = np.mean(diff_simulato_reale)
+diff_simulato_reale_std = np.std(diff_simulato_reale)
+
+diff_simulato_aci = data["space_gap_simulato"] - data["security_distance_aci"]
+diff_simulato_aci_mean = np.mean(diff_simulato_aci)
+diff_simulato_aci_std = np.std(diff_simulato_aci)
+
+diff_simulato_quiz = data["space_gap_simulato"] - data["security_distance_quiz"]
+diff_simulato_quiz_mean = np.mean(diff_simulato_quiz)
+diff_simulato_quiz_std = np.std(diff_simulato_quiz)
+
+print(f"Differenza Simulato vs Reale: media = {diff_simulato_reale_mean:.3f}, std = {diff_simulato_reale_std:.3f}")
+print(f"Differenza Simulato vs ACI: media = {diff_simulato_aci_mean:.3f}, std = {diff_simulato_aci_std:.3f}")
+print(f"Differenza Simulato vs Quiz: media = {diff_simulato_quiz_mean:.3f}, std = {diff_simulato_quiz_std:.3f}")
+
 
