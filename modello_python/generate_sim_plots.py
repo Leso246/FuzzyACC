@@ -13,8 +13,8 @@ def generate_sim_plots():
     data = pd.DataFrame({
         "time": data_df["time"],
         "ego_velocity": data_df["ego_velocity"],
-        "ego_acceleration": data_df["acc_acceleration"],
-        "actual_ego_acceleration": np.nan,
+        "ego_acceleration": data_df["acc_acceleration"], # Accelerazione impartita dall'ACC (ego reale)
+        "actual_ego_acceleration": np.nan, # Accelerazione effettiva (ego reale)
         "space_gap": data_df["space_gap"],
         "security_distance_quiz": np.nan,
         "security_distance_aci": np.nan
@@ -28,7 +28,6 @@ def generate_sim_plots():
         data.loc[i, "actual_ego_acceleration"] = actual_ego_acceleration
         data.loc[i, "security_distance_quiz"] = ((data["ego_velocity"][i] * 3.6) / 10) * 3
         data.loc[i, "security_distance_aci"] = pow(((data["ego_velocity"][i] * 3.6) / 10), 2)
-
 
     # Grafico ego_velocity simulata VS leader_velocity
     plt.figure(figsize=(16, 8))
@@ -131,7 +130,7 @@ def generate_sim_plots():
     plt.figure(figsize=(16, 8))
     plt.plot(data['time'], data['actual_ego_acceleration'], label='Ego Acceleration Reale Effettiva', color="#800080")
     plt.plot(data['time'], data['ego_acceleration'], label='Ego Acceleration Reale Impartita', color=DATA_COLOR)
-    plt.title('Confronto Ego Acceleration Reale Simulata ed Effettiva')
+    plt.title('Confronto Ego Acceleration Reale Impartita ed Effettiva')
     plt.xlabel('Tempo [s]')
     plt.ylabel('Accelerazione [m/s²]')
     plt.xticks(np.arange(0, 899, step=50))
