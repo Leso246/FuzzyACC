@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+from scipy.stats import pearsonr
 from config import EGO_COLOR, DATA_COLOR, SIM_CSV_PATH, SIM_BW_CSV_PATH, SIM_EGO_BW_PLOTS_PATH
 
 # Confronto veicolo ego simulato (good weather e bad weather)
@@ -17,18 +18,6 @@ data = pd.DataFrame({
     "space_gap_bw": dataset_simulazione_bw_df["space_gap"],
 })
 
-# Grafico ego_velocity 
-plt.figure(figsize=(16, 8))
-plt.plot(data['time'], data['ego_velocity'], label='Ego Velocity (Good Weather)', color=EGO_COLOR)
-plt.plot(data['time'], data['ego_velocity_bw'], label='Ego Velocity (Bad Weather)', color=DATA_COLOR)
-plt.title('Confronto Ego Velocity Simulata')
-plt.xlabel('Tempo [s]')
-plt.ylabel('Velocità [m/s]')
-plt.xticks(np.arange(0, 899, step=50))
-plt.legend()
-plt.grid(True)
-plt.savefig(SIM_EGO_BW_PLOTS_PATH + "/velocity")
-
 # Grafico Ego Acceleration
 plt.figure(figsize=(16, 8))
 plt.plot(data['time'], data['ego_acceleration_bw'], label='Ego Acceleration (Bad Weather)', color=DATA_COLOR)
@@ -41,6 +30,26 @@ plt.legend()
 plt.grid(True)
 plt.savefig(SIM_EGO_BW_PLOTS_PATH + "/acceleration")
 
+# Calcola la correlazione di Pearson per le accelerazioni
+corr, _ = pearsonr(data['ego_acceleration'], data['ego_acceleration_bw'])
+print('Correlazione di Pearson per le accelerazioni: %.3f' % corr)
+
+# Grafico ego_velocity 
+plt.figure(figsize=(16, 8))
+plt.plot(data['time'], data['ego_velocity'], label='Ego Velocity (Good Weather)', color=EGO_COLOR)
+plt.plot(data['time'], data['ego_velocity_bw'], label='Ego Velocity (Bad Weather)', color=DATA_COLOR)
+plt.title('Confronto Ego Velocity Simulata')
+plt.xlabel('Tempo [s]')
+plt.ylabel('Velocità [m/s]')
+plt.xticks(np.arange(0, 899, step=50))
+plt.legend()
+plt.grid(True)
+plt.savefig(SIM_EGO_BW_PLOTS_PATH + "/velocity")
+
+# Calcola la correlazione di Pearson per le velocità
+corr, _ = pearsonr(data['ego_velocity'], data['ego_velocity_bw'])
+print('Correlazione di Pearson per le velocità: %.3f' % corr)
+
 # Grafico Space Gap
 plt.figure(figsize=(16, 8))
 plt.plot(data['time'], data['space_gap'], label='Space Gap (Good Weather)', color=EGO_COLOR)
@@ -52,3 +61,9 @@ plt.xticks(np.arange(0, 899, step=50))
 plt.legend()
 plt.grid(True)
 plt.savefig(SIM_EGO_BW_PLOTS_PATH + "/space_gap")
+
+diff = data['space_gap_bw'] - data['space_gap']
+mean = np.mean(diff)
+std = np.std(diff)
+
+print(f"Media:, {mean:.3f}, Std:, {std:.3f}")
