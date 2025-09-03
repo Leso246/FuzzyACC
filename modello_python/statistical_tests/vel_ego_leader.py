@@ -2,7 +2,8 @@ import pandas as pd
 from modello_python.config import SIM_CSV_PATH
 from scipy.stats import pearsonr
 
-# Carica i risultati e i dati
+# Confronta la ego velocity simulata con la leader velocity
+
 dataset_df = pd.read_csv(SIM_CSV_PATH)
 
 data = pd.DataFrame({

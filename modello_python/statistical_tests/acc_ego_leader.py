@@ -2,6 +2,8 @@ import pandas as pd
 from modello_python.config import SIM_CSV_PATH, ALPHA
 from scipy.stats import pearsonr
 
+# Confronta la ego acceleration simulata con la leader acceleration (filtrandola con EWMA)
+
 dataset_df = pd.read_csv(SIM_CSV_PATH)
 
 data = pd.DataFrame({
