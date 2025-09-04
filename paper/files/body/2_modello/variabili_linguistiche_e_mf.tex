@@ -269,8 +269,9 @@ La variabile \texttt{acceleration} rappresenta l'accelerazione (positiva, negati
 Un'accelerazione al di fuori di tale intervallo è considerata non confortevole e quindi incompatibile con l'obiettivo di comfort che il sistema ACC deve garantire.  
 In particolare:
 \begin{itemize}
-  \item Una \textbf{decelerazione inferiore a \(-3\,\tfrac{\mathrm{m}}{\mathrm{s^2}}\)} è considerata troppo brusca 
-  \textcolor{red}{CERCARE MAX DEC CONFORTEVOLE}; 
+  \item Una \textbf{decelerazione superiore in modulo a \(-3\,\tfrac{\mathrm{m}}{\mathrm{s^2}}\)} 
+  è considerata troppo brusca, poiché va oltre il valore raccomandato 
+  dall'\textit{Institute of Transportation Engineers} (ITE, 1999), pari a \(3.0\,\tfrac{\mathrm{m}}{\mathrm{s^2}}\) \cite{comfortable_deceleration_rate}; 
   in questi casi l'intervento viene demandato all'AEB (Autonomous Emergency Braking), un sistema ADAS distinto 
   incaricato della gestione delle frenate di emergenza.
   \item Un'accelerazione \textbf{superiore a \(+3\,\tfrac{\mathrm{m}}{\mathrm{s^2}}\)} è considerata eccessiva e non 

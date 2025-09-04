@@ -4,8 +4,12 @@
 Il modello è stato implementato in \texttt{Python} utilizzando la libreria \texttt{scikit-fuzzy}.  
 L'intero codice sorgente è disponibile su \href{https://github.com/Leso246/FuzzyACC}{GitHub}.
 \\\\
+\noindent Nel caso in cui venga fornito in input al modello un valore al di fuori dell'intervallo
+definito per una variabile linguistica, esso viene automaticamente trasformato nel valore valido più vicino 
+all'interno di tale intervallo.
+\\\\
 \noindent L'output del sistema fuzzy non è stato utilizzato direttamente, ma sottoposto a un \emph{filtro passa-basso} 
-al fine di ridurre la variabilità rapida del segnale ed aumentare il comfort percepito dal conducente.  
+al fine di ridurre la rapida variabilità del segnale ed aumentare il comfort percepito dal conducente.  
 Il filtro è descritto dalla seguente equazione:
 
 \[
@@ -16,8 +20,8 @@ a_{f}(t) = \alpha \cdot a(t) + (1 - \alpha) \cdot a_{f}(t-1),
 \begin{itemize}
     \item $a_{f}(t)$ rappresenta l'accelerazione filtrata
     \item $\alpha = 0.1$ è il coefficiente di smoothing scelto
-    \item $a(t)$ rappresenta l'accelerazione fuzzy grezza in output
-    \item $a_{f}(t-1)$ è rappresenta l'accelerazione filtrata al passo precedente
+    \item $a(t)$ è l'accelerazione fuzzy grezza in output
+    \item $a_{f}(t-1)$ è l'accelerazione filtrata al passo precedente
 \end{itemize}
 Una visualizzazione interattiva del funzionamento di tale filtro è disponibile 
 su \href{https://www.geogebra.org/m/tb88mqrm}{GeoGebra} \cite{geogebraEWMA}.
@@ -36,7 +40,7 @@ verrà denominato \texttt{dataset\_reale}, contenente dati raccolti da un veicol
 (un'autostrada statunitense) per un periodo di 15 minuti.  
 I dati sono stati acquisiti direttamente tramite l'unità radar di serie del veicolo e il CAN bus.  
 I confronti tra i dati osservati e quelli simulati sono riportati nel Capitolo \ref{cha:risultati}.
-\\\\
+\clearpage
 \noindent Il \texttt{dataset\_reale} include le seguenti colonne:
 \begin{itemize}
     \item \textbf{timestamps} [s]: istanti di campionamento (frequenza di $10\,\mathrm{Hz}$)
@@ -51,7 +55,7 @@ raggiunge un valore minimo di $25.667 \, \frac{\mathrm{m}}{\mathrm{s}}$
 (corrispondenti a $92.401 \, \frac{\mathrm{km}}{\mathrm{h}}$) e un valore massimo di 
 $34.799 \, \frac{\mathrm{m}}{\mathrm{s}}$ (corrispondenti a $125.276 \, \frac{\mathrm{km}}{\mathrm{h}}$), 
 mentre lo \texttt{space\_gap} iniziale risulta pari a $72.653 \, \mathrm{m}$.  
-Tali misure rientrano pienamente negli intervalli contemplati dal modello proposto.
+Tali misure rientrano pienamente negli intervalli definiti per il modello proposto.
 
 \section{Dataset della simulazione}
 \noindent È stato successivamente definito un secondo dataset, denominato \texttt{dataset\_simulazione}, 
@@ -64,7 +68,7 @@ La struttura del \texttt{dataset\_simulazione} ricalca quella del \texttt{datase
 con l'aggiunta di due variabili supplementari: \texttt{ego\_acceleration} e \texttt{leader\_acceleration}. 
 \\\\
 \noindent Per tutta la simulazione è stata impostata la variabile \texttt{weather\_condition} pari a 1, 
-corrispondente a condizioni perfette (good weather).   
+corrispondente a condizioni perfette (\texttt{good\_weather}).   
 Si sottolinea che non si dispone della conoscenza delle condizioni meteorologiche durante il 
 campionamento del \texttt{dataset\_reale}.
 \\\\
