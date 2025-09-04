@@ -1,1 +1,36 @@
 \chapter{Conclusioni}
+\label{cha:conclusioni}
+
+\noindent Il lavoro presentato ha avuto come obiettivo la progettazione e l'implementazione 
+di un sistema di \textit{Adaptive Cruise Control} (ACC) basato su logica fuzzy.  
+Attraverso la definizione di variabili linguistiche, delle relative membership functions 
+e di un insieme di regole, è stato possibile modellare un comportamento 
+di guida realistico.
+\\\\
+\noindent I risultati ottenuti mostrano che il modello simulato riesce a riprodurre con buona 
+fedeltà le dinamiche di un sistema ACC reale.  
+In particolare:
+\begin{itemize}
+    \item il confronto tra le accelerazioni simulata e reale evidenzia una forte correlazione, 
+    confermando la capacità del modello di catturare le variazioni principali, con una risposta più smussata;
+    \item la velocità simulata si è dimostrata altamente coerente con quella reale e con quella del veicolo leader, 
+    garantendo una guida fluida e priva di oscillazioni indesiderate;
+    \item lo space gap mantenuto dal modello è risultato più prudente rispetto a quello osservato nei dati reali, 
+    ma meno conservativo delle prescrizioni più restrittive (ad esempio quelle dell'ACI), 
+    suggerendo un compromesso tra realismo e sicurezza;
+    \item la simulazione in condizioni meteorologiche avverse ha evidenziato un comportamento più cauto, 
+    con distanze di sicurezza maggiori e frenate più marcate nella fase iniziale, confermando 
+    la corretta influenza della variabile \textit{weather condition}.
+\end{itemize}
+
+\noindent Nel complesso, il sistema proposto ha dimostrato di essere in grado di coniugare sicurezza, comfort e realismo, 
+riproducendo strategie di guida comparabili a quelle adottate da un ACC commerciale.  
+La logica fuzzy si è rivelata uno strumento efficace per gestire l'incertezza e la variabilità tipiche del contesto autostradale, 
+garantendo decisioni graduali e interpretabili.
+\\\\
+\noindent Le limitazioni principali del lavoro sono legate all'assenza di una validazione su veicolo reale 
+e alla semplificazione adottata nell'ipotesi che l'accelerazione impartita coincida con quella effettiva.  
+Nonostante ciò, i risultati ottenuti offrono una base solida per sviluppi futuri, 
+orientati verso una maggiore accuratezza e un'integrazione con approcci ibridi che combinino fuzzy logic, 
+machine learning e controllori predittivi.
+
