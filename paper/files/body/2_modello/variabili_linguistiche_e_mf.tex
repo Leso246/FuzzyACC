@@ -35,7 +35,7 @@ percorra la distanza che lo separa dal veicolo \emph{leader}. È definita come:
 \text{time\_headway} \; [\mathrm{s}]
 = \frac{\text{space\_gap}\;[\mathrm{m}]}{\text{ego\_velocity}\;[\mathrm{m}/\mathrm{s}]}
 \]
-dove \(\text{space\_gap}\) è la distanza tra i due veicoli ed \emph{\(\text{ego\_velocity}\)} è la velocità dell'\emph{ego}. 
+dove \(\text{space\_gap}\) è la distanza tra i due veicoli ed \texttt{ego\_velocity} è la velocità del veicolo \emph{ego}. 
 \paragraph{Annotazione} Si osservi che la formula impiega l'assunzione semplificativa 
 secondo cui il veicolo \emph{leader} sia in grado di arrestarsi istantaneamente. 
 Tale ipotesi, evidentemente irrealistica, trascura lo spazio di frenata necessario al \emph{leader}, 
@@ -52,7 +52,7 @@ previsto dalla normativa ACC ISO 15622:2018 \cite{iso15622}.
       \item \texttt{long}: triangolare definita dai punti [4.5, 5.75, 7.0].
       \item \texttt{very\_long}: trapezoidale definita dai punti [6.5, 7.0, 15.5, 15.5].
     \end{itemize}
-  \item \textbf{Universo}: \([0,15.5]\) $s$.  
+  \item \textbf{Universo}: \([0,15.5]\) $\mathrm{s}$.  
         Il valore minimo corrisponde al limite fisico teorico, sebbene sia considerato praticamente irraggiungibile.
         Il valore massimo è stato determinato sulla base della portata tipica di un front radar sensor prodotto da BOSCH~\cite{bosch_radar}, pari a \(300\,\mathrm{m}\), e di una velocità minima del veicolo \emph{ego} pari a \(70\,\mathrm{km/h}\).  
         Pertanto, il massimo \texttt{time\_headway} è calcolato come:
