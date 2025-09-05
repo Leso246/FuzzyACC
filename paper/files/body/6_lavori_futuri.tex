@@ -1,0 +1,55 @@
+\chapter{Lavori Futuri}
+
+\noindent Nonostante i risultati promettenti, il lavoro svolto rappresenta un punto di partenza 
+più che una soluzione definitiva. Vi sono infatti diversi aspetti che meritano ulteriori 
+approfondimenti e sviluppi.
+\\\\
+\noindent Un primo miglioramento riguarda la gestione delle condizioni meteorologiche avverse.  
+Sebbene il sistema tenda ad aumentare lo \texttt{space\_gap} in caso di \texttt{bad\_weather}, 
+frenate eccessivamente brusche potrebbero compromettere la sicurezza 
+sul bagnato invece di incrementarla.  
+Un'estensione del modello dovrebbe quindi includere strategie di decelerazione più graduali, 
+tenendo conto della ridotta aderenza del manto stradale.
+\\\\
+\noindent Un altro sviluppo naturale sarebbe la validazione su veicoli reali, sia in scala (ad esempio con modelli radiocomandati), 
+sia su veicoli veri dotati di sensori, per verificare il comportamento del sistema in scenari concreti.  
+La sperimentazione pratica consentirebbe di affinare il modello e di confrontarne i risultati con situazioni dinamiche reali.
+\\\\
+\noindent Dal punto di vista funzionale, il sistema andrebbe arricchito con la capacità di gestire scenari complessi, 
+come il cambio di corsia del veicolo \emph{leader} o l'intromissione improvvisa di un altro veicolo nella propria corsia.  
+Questi casi, frequenti nella guida reale, richiedono un controllo più flessibile e reattivo, 
+magari combinando la logica fuzzy con modelli predittivi o approcci basati sul machine learning.
+\\\\
+\noindent Un ulteriore passo in avanti sarebbe l'estensione del modello a contesti non autostradali, 
+come strade urbane ed extraurbane, dove i limiti di velocità, le interazioni con pedoni e ciclisti, 
+e la maggiore variabilità del traffico rendono necessarie regole di controllo più articolate. 
+\\\\ 
+\noindent Sarebbe inoltre opportuno introdurre un limite di velocità massimo dinamico, 
+basato sul riconoscimento automatico dei cartelli stradali o sull'integrazione con i sistemi di navigazione 
+che forniscono i limiti della strada che si sta percorrendo.
+\\\\
+\noindent Un aspetto rilevante da approfondire riguarda l'estensione degli intervalli accettabili per le variabili linguistiche, 
+così da ampliare i casi in cui il sistema può operare correttamente.  
+In parallelo, sarebbe auspicabile sviluppare una soluzione più elegante rispetto all'attuale strategia, 
+che approssima un valore fuori range al valore valido più vicino.
+\\\\
+\noindent Un ulteriore punto aperto riguarda la definizione del valore della variabile meteorologica, 
+attualmente espresso su un intervallo continuo tra 0 e 1.  
+Sarebbe necessario stabilire un criterio chiaro, o un algoritmo dedicato, che consenta alla macchina di 
+determinare automaticamente il valore corretto in base alle condizioni effettive rilevate 
+(ad esempio pioggia leggera, nebbia o forte temporale).
+\\\\
+\noindent Infine, ulteriori sviluppi potrebbero includere:
+\begin{itemize}
+    \item l'integrazione con sistemi di comunicazione Vehicle-to-Vehicle (V2V) e Vehicle-to-Infrastructure (V2I), 
+    per migliorare la reattività del sistema attraverso lo scambio di informazioni in tempo reale;
+    \item l'ottimizzazione del comfort di guida tramite l'adattamento dinamico dei parametri fuzzy 
+    in base allo stile di guida del conducente;
+    \item la definizione di meccanismi di \textit{self-tuning}, in grado di aggiornare automaticamente 
+    le membership functions e le regole in funzione dei dati raccolti durante l'utilizzo reale.
+\end{itemize}
+
+\noindent In conclusione, il sistema sviluppato fornisce una base solida ma aperta a numerosi miglioramenti.  
+La sua evoluzione futura dovrà mirare a incrementare non solo l'accuratezza e la sicurezza, 
+ma anche la capacità di adattarsi a scenari complessi e diversificati, avvicinandosi sempre di più 
+a un comportamento di guida realmente autonomo e affidabile.  

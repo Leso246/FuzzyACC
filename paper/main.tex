@@ -1,13 +1,29 @@
 \documentclass[a4paper, oneside, openany]{book}
+\usepackage[a4paper, top=4cm, bottom=4cm, left=3.6cm, right=3.6cm]{geometry}
 \usepackage{graphicx}
+\graphicspath{{./images/plots/}}
 \usepackage{subfiles}
 \usepackage[italian]{babel}
 \usepackage{hyperref}
 \usepackage[export]{adjustbox} 
 \usepackage{amsmath}
-\usepackage{xcolor}
+\usepackage{csquotes}
 \usepackage{changepage}
-
+\usepackage{mathtools}
+\usepackage[table]{xcolor}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{array}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{adjustbox}
+\usepackage{longtable}
+\usepackage{tabularx} 
+\usepackage[table]{xcolor}
+\usepackage{colortbl}
+\usepackage{xcolor}
+\usepackage{placeins}
 
 \usepackage{titlesec} % Modifica il titolo del capitolo
 \titleformat{\chapter}[hang]{\huge\bfseries}{\thechapter}{1em}{}
@@ -16,23 +32,43 @@
 \usepackage[
 backend=biber,
 style=ieee,
-sorting=none 
+sorting=none,
 %sorting=ynt
 ]{biblatex}
 \addbibresource{files/bibliografia.bib}
 
+\definecolor{headerblue}{RGB}{0, 102, 204}
+\definecolor{rowgray}{gray}{0.95}
+
 \begin{document}
-
-% File di frontespizio
-\subfile{files/frontespizio.tex}
-
- % Numerazione delle prima pagina con i numeri romani
-\pagenumbering{roman}
  
-\tableofcontents % Indice
-\listoffigures % Indice delle immagini
-\listoftables % Indice delle tabelle
+    % File di frontespizio
+    \subfile{files/frontespizio.tex}
 
-\printbibliography
+    % Numerazione delle prima pagina con i numeri romani
+    \pagenumbering{roman}
+    
+    \tableofcontents % Indice
+    \listoffigures % Indice delle immagini
+    \listoftables % Indice delle tabelle
+
+    \clearpage
+
+    % Numera le pagine con i numeri arabi e resetta il counter da questa pagina in poi
+    \pagenumbering{arabic} 
+    \setcounter{page}{1}
+
+    \subfile{files/body/0_introduzione.tex}
+    \subfile{files/body/1_stato_arte.tex}
+    \subfile{files/body/2_modello.tex}
+    \subfile{files/body/3_implementazione.tex}
+    \subfile{files/body/4_risultati.tex}
+    \subfile{files/body/5_conclusioni.tex}
+    \subfile{files/body/6_lavori_futuri.tex}
+
+    \printbibliography
+
+    \appendix
+    \subfile{files/appendice.tex}
 
 \end{document}

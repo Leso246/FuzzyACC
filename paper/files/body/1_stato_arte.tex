@@ -1,0 +1,38 @@
+\chapter{Stato dell'Arte}
+La crescente complessità del traffico stradale e la ricerca di una maggiore sicurezza hanno spinto l'evoluzione dei sistemi di 
+assistenza alla guida (ADAS), tra cui l'Adaptive Cruise Control (ACC). L'ACC è progettato per mantenere una distanza di sicurezza 
+costante dal veicolo che precede, gestendo automaticamente la velocità e la distanza tra i veicoli.
+\\\\
+\noindent Sebbene i controller PID siano ampiamente utilizzati per la loro robustezza e i bassi requisiti hardware, spesso necessitano di 
+una calibrazione complessa per adattarsi ai diversi scenari di guida e non riescono a ottenere un controllo ottimale. Per superare 
+queste limitazioni, la ricerca si è orientata verso approcci più flessibili come la \textbf{logica fuzzy} 
+e il \textbf{Model Predictive Control (MPC)} \cite{singh2015adaptive}.
+
+\subsection*{Applicazione della Logica Fuzzy nell'ACC}
+I sistemi basati su logica fuzzy sono particolarmente adatti per gestire la complessità e l'incertezza del 
+comportamento di guida. Essi modellano il processo decisionale umano, utilizzando variabili linguistiche e regole 
+basate sull'esperienza del guidatore. La logica fuzzy permette di ottenere una risposta più fluida e naturale rispetto 
+ai metodi di controllo tradizionali, migliorando il comfort di guida \cite{simic2022cascaded}.
+\\\\
+\noindent \textbf{Sistemi a Logica Fuzzy Gerarchici e a Cascata}: Per gestire un gran numero di variabili di input 
+senza aumentare esponenzialmente il numero delle regole, sono stati proposti sistemi a cascata o gerarchici. 
+In questo approccio più sistemi di inferenza fuzzy sono collegati tra loro, riducendo significativamente il numero 
+complessivo di regole e il carico computazionale. In tal modo il sistema diventa adatto per applicazioni in tempo reale, 
+pur mantenendo la capacità di gestire scenari di guida complessi \cite{simic2022cascaded}.
+\\\\
+\noindent\textbf{Confronto con altri approcci}: In un'implementazione su un'auto modello autonoma, è stato dimostrato che un controller 
+fuzzy può fornire una risposta più fluida e mantenere un errore di distanza inferiore rispetto a un controller PID 
+tradizionale \cite{alomari2020fuzzy}. Un'altra ricerca ha evidenziato come un ACC che combina una rete neurale e un algoritmo 
+fuzzy superi le prestazioni delle reti neurali convenzionali.
+
+\subsection*{Integrazione con altre tecnologie}
+Studi più recenti hanno esplorato l'integrazione della logica fuzzy con altre metodologie di controllo avanzate. Ad esempio, 
+una strategia di controllo gerarchica combina un osservatore dello stato del veicolo basato su machine learning, 
+un \textbf{Fuzzy Model Predictive Controller (fuzzy-MPC)} e un controller esecutivo PID per migliorare la precisione di 
+tracciamento e la stabilità del sistema. Questo approccio ibrido mira a bilanciare le prestazioni di tracciamento, il 
+comfort e la robustezza del controllo in ambienti incerti \cite{guo2023adaptive}.
+\\\\
+\noindent In sintesi, i controller a logica fuzzy rappresentano una soluzione robusta e intuitiva per la progettazione di sistemi ACC, 
+offrendo prestazioni superiori in termini di fluidità e comfort di guida rispetto ai controller classici. L'integrazione di 
+questi sistemi con altre tecnologie, come l'MPC e il machine learning, apre la strada a soluzioni ancora più sofisticate, in 
+grado di adattarsi dinamicamente a scenari di guida complessi e variabili.
