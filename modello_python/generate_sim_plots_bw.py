@@ -56,7 +56,7 @@ plt.plot(data['time'], data['space_gap'], label='Space Gap (Good Weather)', colo
 plt.plot(data['time'], data['space_gap_bw'], label='Space Gap (Bad Weather)', color=DATA_COLOR)
 plt.title('Confronto Space Gap Simulato')
 plt.xlabel('Tempo [s]')
-plt.ylabel('Accelerazione [m/s²]')
+plt.ylabel('Distanza [m]')
 plt.xticks(np.arange(0, 899, step=50))
 plt.legend()
 plt.grid(True)
