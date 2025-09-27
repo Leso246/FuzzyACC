@@ -1,15 +1,17 @@
-# 🚗 Progettazione e Implementazione di un Sistema di Adaptive Cruise Control basato su Logica Fuzzy
+# 🚗 Design and Implementation of a Fuzzy Logic-Based Adaptive Cruise Control System
 
-Questo progetto è stato realizzato per il corso **Sistemi Complessi e Incerti**,
-primo anno del Corso di Laurea Magistrale in Informatica presso l'Università degli Studi di Milano-Bicocca
-(_UNIMIB@Disco_), appello di Settembre 2025.
+This project was carried out for the **Complex and Uncertain Systems** course,  
+first year of the Master’s Degree in Computer Science at the University of Milano-Bicocca  
+(_UNIMIB@Disco_), September 2025 exam session.
 
-> **Esito:** 30L/30
+> **Grade:** 30L/30
 
-La ricerca si concentra sulla progettazione e simulazione di un sistema di Adaptive Cruise Control (ACC) che utilizza la Logica Fuzzy per gestire in modo intelligente la distanza di sicurezza dal veicolo precedente. L'obiettivo è migliorare la fluidità e la sicurezza della guida in condizioni di traffico autostradale.
+The research focuses on the design and simulation of an Adaptive Cruise Control (ACC) system that uses Fuzzy Logic to intelligently manage the safe distance from the preceding vehicle. The goal is to improve driving smoothness and safety under highway traffic conditions.
 
 ---
 
-## 👥 Autori
+## 👥 Authors
 
-- Lesinigo Simone ([GitHub](https://github.com/leso246))
+- Simone Lesinigo ([GitHub](https://github.com/leso246))
+
+[Italian README](README-IT.md)
